@@ -2,62 +2,62 @@
 * Created by vrlc92 on 5/4/16.
 */
 
-var request = require('request');
-var options = require('./options.js');
-var Api = require('./api.js');
+const options = require('./options.js');
+const Api = require('./api.js');
 
-var MultiSignature = {};
+const MultiSignature = {};
 
-MultiSignature.getPendingMultiSignatureTransactions = function(publicKey, callback) {
+MultiSignature.getPendingMultiSignatureTransactions =
+function (publicKey, callback) {
   Api.get({
-    url: options.url + '/api/multisignatures/pending',
+    url: `${options.url}/api/multisignatures/pending`,
     qs: {
-      publicKey: publicKey
+      publicKey,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-MultiSignature.createMultiSignatureAccount = function(secret, lifetime,
-  min, keysgroup, callback) {
-    Api.get({
-      url: options.url + '/api/multisignatures',
-      method: 'PUT',
-      json: {
-        secret: secret,
-        lifetime: lifetime,
-        min: min,
-        keysgroup: keysgroup
-      },
-      json: true
-    }, callback);
+MultiSignature.createMultiSignatureAccount =
+function (secret, lifetime, min, keysgroup, callback) {
+  Api.get({
+    url: `${options.url}/api/multisignatures`,
+    method: 'PUT',
+    json: {
+      secret,
+      lifetime,
+      min,
+      keysgroup,
+    },
+  }, callback);
+};
+
+MultiSignature.signTransaction =
+function (secretKey, publicKey, transactionId, callback) {
+  const data = {
+    secret: secretKey,
+    transactionId,
   };
 
-  MultiSignature.signTransaction = function(secretKey, publicKey, transactionId, callback) {
-    var data = {
-      secret: secretKey,
-      transactionId: transactionId
-    };
+  if (publicKey) {
+    data.publicKey = publicKey;
+  }
 
-    if (publicKey) {
-      data['publicKey'] = publicKey;
-    }
+  Api.post({
+    url: `${options.url}/api/multisignatures/sign`,
+    form: data,
+    json: true,
+  }, callback);
+};
 
-    Api.post({
-      url: options.url + '/api/multisignatures/sign',
-      form: data,
-      json: true
-    }, callback);
-  };
+MultiSignature.getAccountsOfMultisignature = function (publicKey, callback) {
+  Api.get({
+    url: `${options.url}/api/multisignatures/accounts`,
+    qs: {
+      publicKey,
+    },
+    json: true,
+  }, callback);
+};
 
-  MultiSignature.getAccountsOfMultisignature = function(publicKey, callback) {
-    Api.get({
-      url: options.url + '/api/multisignatures/accounts',
-      qs: {
-        publicKey: publicKey
-      },
-      json: true
-    }, callback);
-  };
-
-  module.exports = MultiSignature;
+module.exports = MultiSignature;

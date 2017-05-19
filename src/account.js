@@ -1,91 +1,90 @@
 /**
 * Created by vrlc92 on 5/4/16.
 */
+const options = require('./options.js');
+const Api = require('./api.js');
 
-var request = require('request');
-var options = require('./options.js');
-var Api = require('./api.js');
+const Account = {};
 
-var Account = {};
-
-Account.openAccount = function(secretKey, callback) {
+Account.openAccount = function (secretKey, callback) {
   Api.post({
-    url: options.url + '/api/accounts/open',
+    url: `${options.url}/api/accounts/open`,
     form: {
-      secret: secretKey
+      secret: secretKey,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Account.getBalance = function(address, callback) {
+Account.getBalance = function (address, callback) {
   Api.get({
-    url: options.url + '/api/accounts/getBalance',
+    url: `${options.url}/api/accounts/getBalance`,
     qs: {
-      'address': address
+      address,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Account.getPublicKey = function(address, callback) {
+Account.getPublicKey = function (address, callback) {
   Api.get({
-    url: options.url + '/api/accounts/getPublicKey',
+    url: `${options.url}/api/accounts/getPublicKey`,
     qs: {
-      'address': address
+      address,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Account.generatePublicKey = function(secretKey, callback) {
+Account.generatePublicKey = function (secretKey, callback) {
   Api.post({
-    url: options.url + '/api/accounts/generatePublicKey',
+    url: `${options.url}/api/accounts/generatePublicKey`,
     form: {
-      secret: secretKey
+      secret: secretKey,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Account.getAccount = function(address, callback) {
+Account.getAccount = function (address, callback) {
   Api.get({
-    url: options.url + '/api/accounts',
+    url: `${options.url}/api/accounts`,
     qs: {
-      'address': address
+      address,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Account.getVotes = function(address, callback) {
+Account.getVotes = function (address, callback) {
   Api.get({
-    url: options.url + '/api/accounts/delegates',
+    url: `${options.url}/api/accounts/delegates`,
     qs: {
-      address: address
+      address,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Account.vote = function(secretKey, secondSecretKey, publicKey, delegates, callback) {
-  var data = {
+Account.vote =
+function (secretKey, secondSecretKey, publicKey, delegates, callback) {
+  const data = {
     secret: secretKey,
-    delegates: delegates
+    delegates,
   };
 
   if (secondSecretKey) {
-    data['secondSecret'] = secondSecretKey;
+    data.secondSecret = secondSecretKey;
   }
 
   if (publicKey) {
-    data['publicKey'] = publicKey;
+    data.publicKey = publicKey;
   }
 
   Api.put({
-    url: options.url + '/api/accounts/delegates',
+    url: `${options.url}/api/accounts/delegates`,
     form: data,
-    json: true
+    json: true,
   }, callback);
 };
 
