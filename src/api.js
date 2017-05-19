@@ -31,7 +31,7 @@ Api.request = function (config, callback) {
       } else if (callback) {
         callback(null, body.success, body);
       }
-    },
+    } // eslint-disable-line
   );
 };
 
