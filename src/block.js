@@ -2,51 +2,50 @@
 * Created by vrlc92 on 5/5/16.
 */
 
-var request = require('request');
-var options = require('./options.js');
-var Api = require('./api.js');
+const options = require('./options.js');
+const Api = require('./api.js');
 
-var Block = {};
+const Block = {};
 
-Block.getBlock = function(blockId, callback) {
+Block.getBlock = function (blockId, callback) {
   Api.get({
-    url: options.url + '/api/blocks/get',
+    url: `${options.url}/api/blocks/get`,
     qs: {
-      id: blockId
+      id: blockId,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Block.getBlocks = function(qs, callback) {
+Block.getBlocks = function (qs, callback) {
   Api.get({
-    url: options.url + '/api/blocks',
-    qs: qs,
-    json: true
+    url: `${options.url}/api/blocks`,
+    qs,
+    json: true,
   }, callback);
 };
 
-Block.getBlockchainFee = function(callback) {
+Block.getBlockchainFee = function (callback) {
   Api.get({
-    url: options.url + '/api/blocks/getFee',
-    json: true
+    url: `${options.url}/api/blocks/getFee`,
+    json: true,
   }, callback);
 };
 
-Block.getBlockchainHeight = function(callback) {
+Block.getBlockchainHeight = function (callback) {
   Api.get({
-    url: options.url + '/api/blocks/getHeight',
-    json: true
+    url: `${options.url}/api/blocks/getHeight`,
+    json: true,
   }, callback);
 };
 
-Block.getForgedByAccount = function(generatorPublicKey, callback) {
+Block.getForgedByAccount = function (generatorPublicKey, callback) {
   Api.get({
-    url: options.url + '/api/delegates/forging/getForgedByAccount',
+    url: `${options.url}/api/delegates/forging/getForgedByAccount`,
     qs: {
-      generatorPublicKey: generatorPublicKey
+      generatorPublicKey,
     },
-    json: true
+    json: true,
   }, callback);
 };
 

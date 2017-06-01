@@ -2,86 +2,86 @@
 * Created by vrlc92 on 5/4/16.
 */
 
-var request = require('request');
-var options = require('./options.js');
-var Api = require('./api.js');
+const options = require('./options.js');
+const Api = require('./api.js');
 
-var Delegate = {};
+const Delegate = {};
 
-Delegate.enableDelegateOnAccount = function(secretKey, secondSecretKey, username, callback) {
-  var data = {
+Delegate.enableDelegateOnAccount = function (
+  secretKey, secondSecretKey, username, callback) {
+  const data = {
     secret: secretKey,
-    username: username
+    username,
   };
 
   if (secondSecretKey) {
-    data['secondSecret'] = secondSecretKey;
+    data.secondSecret = secondSecretKey;
   }
 
   Api.put({
-    url: options.url + '/api/delegates',
+    url: `${options.url}/api/delegates`,
     form: data,
-    json: true
+    json: true,
   }, callback);
 };
 
-Delegate.getDelegates = function(qs, callback) {
+Delegate.getDelegates = function (qs, callback) {
   Api.get({
-    url: options.url + '/api/delegates',
-    qs: qs,
-    json: true
+    url: `${options.url}/api/delegates`,
+    qs,
+    json: true,
   }, callback);
 };
 
-Delegate.getByUsername = function(username, callback) {
+Delegate.getByUsername = function (username, callback) {
   Api.get({
-    url: options.url + '/api/delegates/get',
+    url: `${options.url}/api/delegates/get`,
     qs: {
-      username: username
+      username,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Delegate.getByPublicKey = function(publicKey, callback) {
+Delegate.getByPublicKey = function (publicKey, callback) {
   Api.get({
-    url: options.url + '/api/delegates/get',
+    url: `${options.url}/api/delegates/get`,
     qs: {
-      publicKey: publicKey
+      publicKey,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
 Delegate.getDelegate = Delegate.getByUsername;
 
-Delegate.getVoters = function(publicKey, callback) {
+Delegate.getVoters = function (publicKey, callback) {
   Api.get({
-    url: options.url + '/api/delegates/voters',
+    url: `${options.url}/api/delegates/voters`,
     qs: {
-      publicKey: publicKey
+      publicKey,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Delegate.enableForging = function(secretKey, callback) {
+Delegate.enableForging = function (secretKey, callback) {
   Api.post({
-    url: options.url + '/api/delegates/forging/enable',
+    url: `${options.url}/api/delegates/forging/enable`,
     form: {
-      secret: secretKey
+      secret: secretKey,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Delegate.disableForging = function(secretKey, callback) {
+Delegate.disableForging = function (secretKey, callback) {
   Api.post({
-    url: options.url + '/api/delegates/forging/disable',
+    url: `${options.url}/api/delegates/forging/disable`,
     form: {
-      secret: secretKey
+      secret: secretKey,
     },
-    json: true
+    json: true,
   }, callback);
 };
 

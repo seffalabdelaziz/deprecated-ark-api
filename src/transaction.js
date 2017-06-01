@@ -2,66 +2,66 @@
 * Created by vrlc92 on 5/5/16.
 */
 
-var request = require('request');
-var options = require('./options.js');
-var Api = require('./api.js');
+const options = require('./options.js');
+const Api = require('./api.js');
 
-var Transaction = {};
+const Transaction = {};
 
-Transaction.getTransactionsList = function(qs, callback) {
+Transaction.getTransactionsList = function (qs, callback) {
   Api.get({
-    url: options.url + '/api/transactions',
-    qs: qs,
-    json: true
+    url: `${options.url}/api/transactions`,
+    qs,
+    json: true,
   }, callback);
 };
 
-Transaction.sendTransaction = function(secretKey, secondSecretKey, publicKey, amount, recipientId, callback) {
-  var data = {
+Transaction.sendTransaction =
+function (secretKey, secondSecretKey, publicKey, amount, recipientId, callback) { // eslint-disable-line
+  const data = {
     secret: secretKey,
-    amount: amount,
-    recipientId: recipientId
+    amount,
+    recipientId,
   };
 
   if (secondSecretKey) {
-    data['secondSecret'] = secondSecretKey;
+    data.secondSecret = secondSecretKey;
   }
 
   if (publicKey) {
-    data['publicKey'] = publicKey;
+    data.publicKey = publicKey;
   }
 
   Api.get({
-    url: options.url + '/api/transactions',
+    url: `${options.url}/api/transactions`,
     method: 'PUT',
-    json: data
+    json: data,
   }, callback);
 };
 
-Transaction.getTransaction = function(transactionId, callback) {
+Transaction.getTransaction = function (transactionId, callback) {
   Api.get({
-    url: options.url + '/api/transactions/get',
+    url: `${options.url}/api/transactions/get`,
     qs: {
-      id: transactionId
+      id: transactionId,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Transaction.getUnconfirmedTransaction = function(transactionId, callback) {
+Transaction.getUnconfirmedTransaction = function (transactionId, callback) {
   Api.get({
-    url: options.url + '/api/transactions/unconfirmed/get',
+    url: `${options.url}/api/transactions/unconfirmed/get`,
     qs: {
-      id: transactionId
+      id: transactionId,
     },
-    json: true
+    json: true,
   }, callback);
 };
 
-Transaction.getUnconfirmedTransactions = function(callback) {
+Transaction.getUnconfirmedTransactions = function (callback) {
   Api.get({
-    url: options.url + '/api/transactions/unconfirmed',
-    json: true
+    url: `${options.url}/api/transactions/unconfirmed`,
+    json: true,
   }, callback);
 };
 
