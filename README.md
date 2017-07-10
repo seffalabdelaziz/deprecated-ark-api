@@ -218,7 +218,7 @@ var arkAPI = require("ark-api");
 arkAPI.sendTransaction("Secret key of account",
                       "Secret key from second transaction, required if user uses second signature. The parameter is ignored when the value is null.",
                       "Public key of sender account, to verify secret passphrase in wallet. Optional, only for UI. The parameter is ignored when the value is null.",
-                      "Amount of transaction * 10^8. Example: to send 1.1234 LISK, use 112340000 as amount",
+                      "Amount of transaction * 10^8. Example: to send 1.1234 ARK, use 112340000 as amount",
                       "Recipient of transaction. Address.",
                       function(error, success, response) {
     console.log(response);
