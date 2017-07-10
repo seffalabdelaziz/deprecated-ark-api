@@ -191,7 +191,7 @@ var parameters = {
   "recipientId": "Recipient of transaction. (String)",
   "limit": "Limit of transaction to send in response. Default is 20. (Number)",
   "offset": "Offset to load. (Integer number)",
-  "orderBy": "Name of column to order. After column name must go 'desc' or 'asc' to choose order type, prefix for column name is t_. Example: orderBy=t_timestamp:desc (String)"
+  "orderBy": "Name of column to order. After column name must go 'desc' or 'asc' to choose order type. Example: orderBy=timestamp:desc (String)"
 };
 
 arkAPI.getTransactionsList(parameters, function(error, success, response) {
