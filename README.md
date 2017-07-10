@@ -1,10 +1,13 @@
 # ark-api
 
+[![Build Status](https://travis-ci.org/ArkEcosystem/ark-api.svg?branch=master)](https://travis-ci.org/ArkEcosystem/ark-api)
+
 A Node.JS module which provides an wrapper for the [Ark API].
 
 ## Installation
 
 [![npm package](https://nodei.co/npm/ark-api.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ark-api/)
+
 
 ## Table of contents
 
