@@ -34,7 +34,7 @@ function (secretKey, secondSecretKey, publicKey, amount, recipientId, callback) 
 
   if(!Init.initP)
   {
-    callback(true, false, "Peers not initialized");
+    callback(true, false, {success: false, msg: "Peers not initialized"});
     return;
   }
 
@@ -46,13 +46,14 @@ function (secretKey, secondSecretKey, publicKey, amount, recipientId, callback) 
       json: data,
     }, callback);
 
-    //Also broadcast tx to 15 other peers just in case
-    peers.slice(0, 16).forEach((peer) => {
+    //Also broadcast tx to other peers just in case
+    console.log(`Also broadcasting to ${peers.length} peers`)
+    peers.forEach((peer) => {
       Api.get({
         url: `${peer.ip}/api/transactions`,
         method: 'PUT',
         json: data,
-      });
+      }, callback);
     });
   }).catch((err) => "Error initializing peers"); 
 };

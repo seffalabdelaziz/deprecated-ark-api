@@ -8,9 +8,10 @@ Init.initP;
 
 Init.init = (mainNet) => {
   Init.initP =  new Promise((resolve, reject) => {
-    options.url = "https://node1.arknet.cloud:" + mainNet ? 4001 : 4000;
+    options.url += mainNet ? ":4001" : ":4002";
+    
     Peer.getPeersList({state: 2, version: "1.0.1", limit: 20}, (err, success, response) => {
-      if(response.success)
+      if(response != null && response.success)
       {
         options.peers = response.peers.filter((peer) => peer.status == "OK" && peer.delay <= 100);
         resolve();
