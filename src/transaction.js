@@ -32,6 +32,12 @@ function (secretKey, secondSecretKey, publicKey, amount, recipientId, callback) 
     data.publicKey = publicKey;
   }
 
+  if(!Init.initP)
+  {
+    callback(true, false, "Peers not initialized");
+    return;
+  }
+
   Init.initP.then(() => {
     var peers = options.peers;
     Api.get({
