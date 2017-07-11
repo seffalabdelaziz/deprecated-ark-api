@@ -53,7 +53,7 @@ function (secretKey, secondSecretKey, publicKey, amount, recipientId, callback) 
         url: `${peer.ip}/api/transactions`,
         method: 'PUT',
         json: data,
-      }, callback);
+      });
     });
   }).catch((err) => "Error initializing peers"); 
 };
