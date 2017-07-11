@@ -10,8 +10,12 @@ const Block = require('./block.js');
 const Signature = require('./signature.js');
 const Delegate = require('./delegate.js');
 const MultiSignature = require('./multi_signature.js');
+const Init = require('./init.js')
 
 module.exports = {
+  // Init
+  init: Init.init,
+
   // Account
   getBalance: Account.getBalance,
   getPublicKey: Account.getPublicKey,

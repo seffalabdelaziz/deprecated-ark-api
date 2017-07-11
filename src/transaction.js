@@ -4,6 +4,7 @@
 
 const options = require('./options.js');
 const Api = require('./api.js');
+const Init = require('./init.js');
 
 const Transaction = {};
 
@@ -31,11 +32,23 @@ function (secretKey, secondSecretKey, publicKey, amount, recipientId, callback) 
     data.publicKey = publicKey;
   }
 
-  Api.get({
-    url: `${options.url}/api/transactions`,
-    method: 'PUT',
-    json: data,
-  }, callback);
+  Init.initP.then(() => {
+    var peers = options.peers;
+    Api.get({
+      url: `${options.url}/api/transactions`,
+      method: 'PUT',
+      json: data,
+    }, callback);
+
+    //Also broadcast tx to 15 other peers just in case
+    peers.slice(0, 16).forEach((peer) => {
+      Api.get({
+        url: `${peer.ip}/api/transactions`,
+        method: 'PUT',
+        json: data,
+      });
+    });
+  }).catch((err) => "Error initializing peers"); 
 };
 
 Transaction.getTransaction = function (transactionId, callback) {
