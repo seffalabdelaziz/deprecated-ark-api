@@ -1,3 +1,13 @@
+# This package is being deprecated soon, please don't use it unless you cannot do otherwise
+
+Instead, depending on your needs, please use alternatives:
+- ark-js
+- arky
+- ark-go
+- javark
+- ark-client
+
+
 # ark-api
 
 [![Build Status](https://travis-ci.org/ArkEcosystem/ark-api.svg?branch=master)](https://travis-ci.org/ArkEcosystem/ark-api)
