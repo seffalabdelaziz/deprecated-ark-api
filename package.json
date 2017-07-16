@@ -1,34 +1,31 @@
 {
-  "name": "ark-api",
-  "version": "1.1.0",
+  "name": "arkjs-wrapper",
+  "version": "1.0.1",
   "description": "A Node.JS module which provides an wrapper for the Ark API.",
   "main": "src/index.js",
-  "scripts": {
-    "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArkEcosystem/ark-api.git"
+    "url": "git+https://github.com/eugeneli/arkjs-wrapper.git"
   },
   "keywords": [
     "Ark",
     "API",
-    "Node.js"
+    "Node.js",
+    "Arkjs"
   ],
-  "author": "vrlc92 <vrlc92@gmail.com> (https://br.linkedin.com/in/vrlc92)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ArkEcosystem/ark-api/issues"
-  },
-  "homepage": "https://github.com/ArkEcosystem/ark-api#readme",
   "dependencies": {
-    "request": "2.76.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^7.2.3",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.2.0"
+    "arkjs": "^0.2.0",
+    "bigi": "^1.4.2",
+    "bignumber.js": "^4.0.2",
+    "bip66": "^1.1.5",
+    "ecurve": "^1.0.5",
+    "line-by-line": "^0.1.5",
+    "moment": "^2.18.1",
+    "mysql": "^2.13.0",
+    "node-schedule": "^1.2.3",
+    "request": "^2.81.0",
+    "secp256k1": "^3.3.0",
+    "typeforce": "^1.11.1",
+    "wif": "^2.0.6"
   }
 }
