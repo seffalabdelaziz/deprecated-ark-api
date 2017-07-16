@@ -1,23 +1,18 @@
-/**
-* Created by vrlc92 on 5/5/16.
-*/
-
 const options = require('./options.js');
 const Api = require('./api.js');
 
 const Peer = {};
 
-Peer.getPeersList = function (qs, callback) {
+Peer.getPeersList = function (callback) {
   Api.get({
-    url: `${options.url}/api/peers`,
-    qs,
+    url: `${network.node}/api/peers`,
     json: true,
   }, callback);
 };
 
 Peer.getPeer = function (ip, port, callback) {
   Api.get({
-    url: `${options.url}/api/peers/get`,
+    url: `${network.node}/api/peers/get`,
     qs: {
       ip,
       port,
@@ -28,7 +23,7 @@ Peer.getPeer = function (ip, port, callback) {
 
 Peer.getPeerVersion = function (callback) {
   Api.get({
-    url: `${options.url}/api/peers/version`,
+    url: `${network.node}/api/peers/version`,
     json: true,
   }, callback);
 };

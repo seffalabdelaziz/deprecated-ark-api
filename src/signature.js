@@ -1,15 +1,11 @@
-/**
-* Created by vrlc92 on 5/5/16.
-*/
-
-const options = require('./options.js');
+const network = require('./network.js');
 const Api = require('./api.js');
 
 const Signature = {};
 
 Signature.addSecondSignature = function (secret, secondSecret, callback) {
   Api.put({
-    url: `${options.url}/api/signatures`,
+    url: `${network.node}/api/signatures`,
     form: {
       secret,
       secondSecret,

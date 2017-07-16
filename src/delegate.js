@@ -1,7 +1,3 @@
-/**
-* Created by vrlc92 on 5/4/16.
-*/
-
 const options = require('./options.js');
 const Api = require('./api.js');
 
@@ -19,7 +15,7 @@ Delegate.enableDelegateOnAccount = function (
   }
 
   Api.put({
-    url: `${options.url}/api/delegates`,
+    url: `${network.node}/api/delegates`,
     form: data,
     json: true,
   }, callback);
@@ -27,7 +23,7 @@ Delegate.enableDelegateOnAccount = function (
 
 Delegate.getDelegates = function (qs, callback) {
   Api.get({
-    url: `${options.url}/api/delegates`,
+    url: `${network.node}/api/delegates`,
     qs,
     json: true,
   }, callback);
@@ -35,7 +31,7 @@ Delegate.getDelegates = function (qs, callback) {
 
 Delegate.getByUsername = function (username, callback) {
   Api.get({
-    url: `${options.url}/api/delegates/get`,
+    url: `${network.node}/api/delegates/get`,
     qs: {
       username,
     },
@@ -45,7 +41,7 @@ Delegate.getByUsername = function (username, callback) {
 
 Delegate.getByPublicKey = function (publicKey, callback) {
   Api.get({
-    url: `${options.url}/api/delegates/get`,
+    url: `${network.node}/api/delegates/get`,
     qs: {
       publicKey,
     },
@@ -57,7 +53,7 @@ Delegate.getDelegate = Delegate.getByUsername;
 
 Delegate.getVoters = function (publicKey, callback) {
   Api.get({
-    url: `${options.url}/api/delegates/voters`,
+    url: `${network.node}/api/delegates/voters`,
     qs: {
       publicKey,
     },
@@ -67,7 +63,7 @@ Delegate.getVoters = function (publicKey, callback) {
 
 Delegate.enableForging = function (secretKey, callback) {
   Api.post({
-    url: `${options.url}/api/delegates/forging/enable`,
+    url: `${network.node}/api/delegates/forging/enable`,
     form: {
       secret: secretKey,
     },
@@ -77,7 +73,7 @@ Delegate.enableForging = function (secretKey, callback) {
 
 Delegate.disableForging = function (secretKey, callback) {
   Api.post({
-    url: `${options.url}/api/delegates/forging/disable`,
+    url: `${network.node}/api/delegates/forging/disable`,
     form: {
       secret: secretKey,
     },

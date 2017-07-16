@@ -1,8 +1,4 @@
-/**
-* Created by vrlc92 on 7/28/16.
-*/
-/* eslint no-param-reassign: ["error", { "props": true, "ignorePropertyModificationsFor": ["config"] }]*/
-const request = require('request');
+const request = require("request");
 
 const Api = {};
 
@@ -11,12 +7,12 @@ Api.get = function (config, callback) {
 };
 
 Api.post = function (config, callback) {
-  config.method = 'POST';
+  config.method = "POST";
   Api.request(config, callback);
 };
 
 Api.put = function (config, callback) {
-  config.method = 'PUT';
+  config.method = "PUT";
   Api.request(config, callback);
 };
 
@@ -31,7 +27,7 @@ Api.request = function (config, callback) {
       } else if (callback) {
         callback(null, body.success, body);
       }
-    } // eslint-disable-line
+    }
   );
 };
 

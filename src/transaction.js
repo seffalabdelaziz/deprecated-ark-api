@@ -1,8 +1,4 @@
-/**
-* Created by vrlc92 on 5/5/16.
-*/
-
-const options = require('./options.js');
+const network = require('./network.js');
 const Api = require('./api.js');
 const Init = require('./init.js');
 
@@ -10,14 +6,14 @@ const Transaction = {};
 
 Transaction.getTransactionsList = function (qs, callback) {
   Api.get({
-    url: `${options.url}/api/transactions`,
+    url: `${network.node}/api/transactions`,
     qs,
     json: true,
   }, callback);
 };
 
 Transaction.sendTransaction =
-function (secretKey, secondSecretKey, publicKey, amount, recipientId, callback) { // eslint-disable-line
+function (secretKey, secondSecretKey, publicKey, amount, recipientId, callback) {
   const data = {
     secret: secretKey,
     amount,
@@ -41,7 +37,7 @@ function (secretKey, secondSecretKey, publicKey, amount, recipientId, callback) 
   Init.initP.then(() => {
     var peers = options.peers;
     Api.get({
-      url: `${options.url}/api/transactions`,
+      url: `${network.node}/api/transactions`,
       method: 'PUT',
       json: data,
     }, callback);
@@ -60,7 +56,7 @@ function (secretKey, secondSecretKey, publicKey, amount, recipientId, callback) 
 
 Transaction.getTransaction = function (transactionId, callback) {
   Api.get({
-    url: `${options.url}/api/transactions/get`,
+    url: `${network.node}/api/transactions/get`,
     qs: {
       id: transactionId,
     },
@@ -70,7 +66,7 @@ Transaction.getTransaction = function (transactionId, callback) {
 
 Transaction.getUnconfirmedTransaction = function (transactionId, callback) {
   Api.get({
-    url: `${options.url}/api/transactions/unconfirmed/get`,
+    url: `${network.node}/api/transactions/unconfirmed/get`,
     qs: {
       id: transactionId,
     },
@@ -80,7 +76,7 @@ Transaction.getUnconfirmedTransaction = function (transactionId, callback) {
 
 Transaction.getUnconfirmedTransactions = function (callback) {
   Api.get({
-    url: `${options.url}/api/transactions/unconfirmed`,
+    url: `${network.node}/api/transactions/unconfirmed`,
     json: true,
   }, callback);
 };

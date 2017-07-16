@@ -1,7 +1,3 @@
-/**
-* Created by vrlc92 on 5/4/16.
-*/
-
 const options = require('./options.js');
 const Api = require('./api.js');
 
@@ -10,7 +6,7 @@ const MultiSignature = {};
 MultiSignature.getPendingMultiSignatureTransactions =
 function (publicKey, callback) {
   Api.get({
-    url: `${options.url}/api/multisignatures/pending`,
+    url: `${network.node}/api/multisignatures/pending`,
     qs: {
       publicKey,
     },
@@ -21,7 +17,7 @@ function (publicKey, callback) {
 MultiSignature.createMultiSignatureAccount =
 function (secret, lifetime, min, keysgroup, callback) {
   Api.get({
-    url: `${options.url}/api/multisignatures`,
+    url: `${network.node}/api/multisignatures`,
     method: 'PUT',
     json: {
       secret,
@@ -44,7 +40,7 @@ function (secretKey, publicKey, transactionId, callback) {
   }
 
   Api.post({
-    url: `${options.url}/api/multisignatures/sign`,
+    url: `${network.node}/api/multisignatures/sign`,
     form: data,
     json: true,
   }, callback);
@@ -52,7 +48,7 @@ function (secretKey, publicKey, transactionId, callback) {
 
 MultiSignature.getAccountsOfMultisignature = function (publicKey, callback) {
   Api.get({
-    url: `${options.url}/api/multisignatures/accounts`,
+    url: `${network.node}/api/multisignatures/accounts`,
     qs: {
       publicKey,
     },

@@ -1,14 +1,11 @@
-/**
-* Created by vrlc92 on 5/4/16.
-*/
-const options = require('./options.js');
+const network = require('./network.js');
 const Api = require('./api.js');
 
 const Account = {};
 
 Account.openAccount = function (secretKey, callback) {
   Api.post({
-    url: `${options.url}/api/accounts/open`,
+    url: `${network.node}/api/accounts/open`,
     form: {
       secret: secretKey,
     },
@@ -18,7 +15,7 @@ Account.openAccount = function (secretKey, callback) {
 
 Account.getBalance = function (address, callback) {
   Api.get({
-    url: `${options.url}/api/accounts/getBalance`,
+    url: `${network.node}/api/accounts/getBalance`,
     qs: {
       address,
     },
@@ -28,7 +25,7 @@ Account.getBalance = function (address, callback) {
 
 Account.getPublicKey = function (address, callback) {
   Api.get({
-    url: `${options.url}/api/accounts/getPublicKey`,
+    url: `${network.node}/api/accounts/getPublicKey`,
     qs: {
       address,
     },
@@ -38,7 +35,7 @@ Account.getPublicKey = function (address, callback) {
 
 Account.generatePublicKey = function (secretKey, callback) {
   Api.post({
-    url: `${options.url}/api/accounts/generatePublicKey`,
+    url: `${network.node}/api/accounts/generatePublicKey`,
     form: {
       secret: secretKey,
     },
@@ -48,7 +45,7 @@ Account.generatePublicKey = function (secretKey, callback) {
 
 Account.getAccount = function (address, callback) {
   Api.get({
-    url: `${options.url}/api/accounts`,
+    url: `${network.node}/api/accounts`,
     qs: {
       address,
     },
@@ -58,7 +55,7 @@ Account.getAccount = function (address, callback) {
 
 Account.getVotes = function (address, callback) {
   Api.get({
-    url: `${options.url}/api/accounts/delegates`,
+    url: `${network.node}/api/accounts/delegates`,
     qs: {
       address,
     },
@@ -82,7 +79,7 @@ function (secretKey, secondSecretKey, publicKey, delegates, callback) {
   }
 
   Api.put({
-    url: `${options.url}/api/accounts/delegates`,
+    url: `${network.node}/api/accounts/delegates`,
     form: data,
     json: true,
   }, callback);
