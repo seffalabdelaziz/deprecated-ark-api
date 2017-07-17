@@ -15,7 +15,6 @@ module.exports = {
     getPublicKey: Account.getPublicKey,
     getAccount: Account.getAccount,
     getVotes: Account.getVotes,
-    vote: Account.vote,
 
     // Loader
     getLoadingStatus: Loader.getLoadingStatus,

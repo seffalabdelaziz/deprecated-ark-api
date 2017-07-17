@@ -52,26 +52,4 @@ Account.getVotes = function (address, callback) {
     }, callback);
 };
 
-Account.vote =
-function (secretKey, secondSecretKey, publicKey, delegates, callback) {
-    const data = {
-        secret: secretKey,
-        delegates,
-    };
-
-    if (secondSecretKey) {
-        data.secondSecret = secondSecretKey;
-    }
-
-    if (publicKey) {
-        data.publicKey = publicKey;
-    }
-
-    Api.put({
-        path: "/api/accounts/delegates",
-        form: data,
-        json: true,
-    }, callback);
-};
-
 module.exports = Account;
