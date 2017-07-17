@@ -1,12 +1,10 @@
-const Account = require('./account.js');
-const Loader = require('./loader.js');
-const Transaction = require('./transaction.js');
-const Peer = require('./peer.js');
-const Block = require('./block.js');
-const Signature = require('./signature.js');
-const Delegate = require('./delegate.js');
-const MultiSignature = require('./multi_signature.js');
-const Init = require('./init.js')
+const Account = require("./account.js");
+const Loader = require("./loader.js");
+const Transaction = require("./transaction.js");
+const Peer = require("./peer.js");
+const Block = require("./block.js");
+const Delegate = require("./delegate.js");
+const Init = require("./init.js")
 
 module.exports = {
     // Init
@@ -26,7 +24,11 @@ module.exports = {
     // Transaction
     getTransactionsList: Transaction.getTransactionsList,
     getTransaction: Transaction.getTransaction,
-    sendTransaction: Transaction.sendTransaction,
+    createTransaction: Transaction.createTransaction,
+    createDelegateTransaction: Transaction.createDelegateTransaction,
+    createSecondSignatureTransaction: Transaction.createSecondSignatureTransaction,
+    createVoteTransaction: Transaction.createVoteTransaction,
+    sendTransactions: Transaction.sendTransactions,
     getUnconfirmedTransaction: Transaction.getUnconfirmedTransaction,
     getUnconfirmedTransactions: Transaction.getUnconfirmedTransactions,
 
@@ -42,22 +44,10 @@ module.exports = {
     getBlockchainHeight: Block.getBlockchainHeight,
     getForgedByAccount: Block.getForgedByAccount,
 
-    // Signature
-    addSecondSignature: Signature.addSecondSignature,
-
     // Delegate
-    enableDelegateOnAccount: Delegate.enableDelegateOnAccount,
     getDelegates: Delegate.getDelegates,
     getDelegate: Delegate.getDelegate,
     getDelegateByPublicKey: Delegate.getByPublicKey,
     getDelegateByUsername: Delegate.getByUsername,
-    getVoters: Delegate.getVoters,
-    enableForging: Delegate.enableForging,
-    disableForging: Delegate.disableForging,
-
-    // MultiSignature
-    getPendingMultiSignatureTransactions: MultiSignature.getPendingMultiSignatureTransactions,
-    createMultiSignatureAccount: MultiSignature.createMultiSignatureAccount,
-    signTransaction: MultiSignature.signTransaction,
-    getAccountsOfMultisignature: MultiSignature.getAccountsOfMultisignature,
+    getVoters: Delegate.getVoters
 };

@@ -19,7 +19,7 @@ Api.put = function (config, callback) {
 };
 
 Api.request = function (config, callback) {
-    config.url = Network.node + config.path;
+    config.url = config.url ? config.url : Network.node + config.path;
     request(
         config,
         (error, response, body) => {

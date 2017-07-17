@@ -1,6 +1,6 @@
-const Network = require('./network.js');
-const Api = require('./api.js');
-const Peer = require('./peer.js');
+const Network = require("./network.js");
+const Api = require("./api.js");
+const Peer = require("./peer.js");
 
 const Init = {};
 
