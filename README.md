@@ -37,8 +37,7 @@ Get the balance of an account.
 **Request**
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getBalance("Address of the account",
-  function(error, success, response) {
+arkApi.getBalance("Address of the account", (error, success, response) => {
     console.log(response);
 });
 ```
@@ -57,8 +56,7 @@ Get the public key of an account. If the account does not exist the API call wil
 **Request**
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getPublicKey("Address of the account",
-  function(error, success, response) {
+arkApi.getPublicKey("Address of the account", (error, success, response) => {
     console.log(response);
 });
 ```
@@ -77,8 +75,7 @@ Returns account information of an address.
 **Request**
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getAccount("Address of the account",
-  function(error, success, response) {
+arkApi.getAccount("Address of the account", (error, success, response) => {
     console.log(response);
 });
 ```
@@ -104,8 +101,7 @@ Get votes by account address.
 **Request**
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getVotes("Address of the account",
-  function(error, success, response) {
+arkApi.getVotes("Address of the account", (error, success, response) => {
     console.log(response);
 });
 ```
@@ -132,53 +128,8 @@ arkApi.getVotes("Address of the account",
 ```
 
 ## Transactions
-API calls related to transactions.
+API calls related to transactions
 
-### Get list of transactions
-Transactions list matched by provided parameters.
-
-**Request**
-```js
-var arkApi = require("arkjs-wrapper")
-
-var parameters = {
-  "blockId": "Block id of transaction. (String)",
-  "senderId": "Sender address of transaction. (String)",
-  "recipientId": "Recipient of transaction. (String)",
-  "limit": "Limit of transaction to send in response. Default: 20. Max: 50 (Integer number)",
-  "offset": "Offset to load. (Integer number)",
-  "orderBy": "Name of column to order. After column name must go 'desc' or 'asc' to choose order type. Example: orderBy=timestamp:desc (String)"
-};
-
-arkApi.getTransactionsList(parameters, function(error, success, response) {
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-  "success": true,
-  "transactions": [
-    {
-        id: Transaction ID (String),
-        blockid: Block ID (Integer String),
-        type: Transaction type (Integer),
-        timestamp: Seconds since genesis block (Integer),
-        amount: Transaction amount (Integer)
-        fee: Transaction fee (Integer),
-        venderField: Vender field/Smartbridge (String),
-        senderId: Sender address (String),
-        recipientId: Recipient address (String),
-        senderPublicKey: Sender public key (String),
-        signature: Transaction signature (String),
-        asset: Asset (Object),
-        confirmations: Number of confirmations (Integer)
-    }
-    ...
-  ]
-}
-```
 
 ### Create Transaction
 Creates a transaction object to be sent
@@ -253,13 +204,59 @@ var transaction = arkApi.sendTransactions([Transactions array], (error, success,
 }
 ```
 
+### Get list of transactions
+Transactions list matched by provided parameters.
+
+**Request**
+```js
+var arkApi = require("arkjs-wrapper")
+
+var parameters = {
+  "blockId": "Block id of transaction. (String)",
+  "senderId": "Sender address of transaction. (String)",
+  "recipientId": "Recipient of transaction. (String)",
+  "limit": "Limit of transaction to send in response. Default: 20. Max: 50 (Integer number)",
+  "offset": "Offset to load. (Integer number)",
+  "orderBy": "Name of column to order. After column name must go 'desc' or 'asc' to choose order type. Example: orderBy=timestamp:desc (String)"
+};
+
+arkApi.getTransactionsList(parameters, (error, success, response) => {
+    console.log(response);
+});
+```
+
+**Response**
+```
+{
+  "success": true,
+  "transactions": [
+    {
+        id: Transaction ID (String),
+        blockid: Block ID (Integer String),
+        type: Transaction type (Integer),
+        timestamp: Seconds since genesis block (Integer),
+        amount: Transaction amount (Integer)
+        fee: Transaction fee (Integer),
+        venderField: Vender field/Smartbridge (String),
+        senderId: Sender address (String),
+        recipientId: Recipient address (String),
+        senderPublicKey: Sender public key (String),
+        signature: Transaction signature (String),
+        asset: Asset (Object),
+        confirmations: Number of confirmations (Integer)
+    }
+    ...
+  ]
+}
+```
+
 ### Get transaction
 Transaction matched by id.
 
 **Request**
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getTransaction("String of transaction (String)", function(error, success, response) {
+arkApi.getTransaction("String of transaction (String)", (error, success, response) => {
     console.log(response);
 });
 ```
@@ -278,7 +275,7 @@ Get unconfirmed transaction by id.
 **Request**
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getUnconfirmedTransaction("String of transaction (String)", function(error, success, response) {
+arkApi.getUnconfirmedTransaction("String of transaction (String)", (error, success, response) => {
     console.log(response);
 });
 ```
@@ -297,7 +294,7 @@ Get list of unconfirmed transactions.
 **Request**
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getUnconfirmedTransactions(function(error, success, response) {
+arkApi.getUnconfirmedTransactions((error, success, response) => {
     console.log(response);
 });
 ```
@@ -319,7 +316,7 @@ Get peers list by parameters.
 **Request**
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getPeersList(function(error, success, response) {
+arkApi.getPeersList((error, success, response) => {
     console.log(response);
 });
 ```
@@ -353,7 +350,7 @@ var arkApi = require("arkjs-wrapper")
 
 arkApi.getPeer("ip: Ip of peer. (String)",
                "port: Port of peer. (Integer)",
-               function(error, success, response) {
+               (error, success, response) => {
     console.log(response);
 });
 ```
@@ -372,7 +369,7 @@ Get peer version and build time
 **Request**
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getPeerVersion(function(err, success, response){
+arkApi.getPeerVersion((error, success, response) => {
   console.log(response);
 });
 ```
@@ -394,7 +391,7 @@ Get block by id.
 
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getBlock(function("id: Id of block", err, success, response){
+arkApi.getBlock("id: Id of block", (err, success, response) => {
   console.log(response);
 });
 ```
@@ -442,7 +439,7 @@ var parameters = {
   "orderBy: field name to order by. Format: fieldname:orderType. Example: height:desc, timestamp:asc (String)"
 };
 
-arkApi.getBlocks(parameters, function(err, success, response){
+arkApi.getBlocks(parameters, (error, success, response) => {
   console.log(response);
 });
 ```
@@ -465,7 +462,7 @@ Get transaction fee for sending "normal" transactions.
 ```js
 var arkApi = require("arkjs-wrapper")
 
-arkApi.getBlockchainFee(function(err, success, response){
+arkApi.getBlockchainFee((error, success, response) => {
   console.log(response);
 });
 ```
@@ -484,7 +481,7 @@ Get blockchain height.
 ```js
 var arkApi = require("arkjs-wrapper")
 
-arkApi.getBlockchainHeight(function(err, success, response){
+arkApi.getBlockchainHeight((error, success, response) => {
   console.log(response);
 });
 ```
@@ -504,7 +501,7 @@ Get amount forged by account.
 var arkApi = require("arkjs-wrapper")
 
 arkApi.getForgedByAccount("generatorPublicKey: generator id of block in hex. (String)",
-                          function(err, success, response){
+                          (error, success, response) => {
     console.log(response);
 });
 ```
@@ -521,7 +518,7 @@ arkApi.getForgedByAccount("generatorPublicKey: generator id of block in hex. (St
 Delegates API.
 
 ### Enable delegate on account
-Calls for delegates functional.
+Calls for delegates
 
 ### Get delegates
 Get delegates list.
@@ -535,7 +532,7 @@ var parameters = {
   "orderBy: Order by field (String)"
 };
 
-arkApi.getDelegates(parameters, function(err, success, response){
+arkApi.getDelegates(parameters, (error, success, response) => {
     console.log(response);
 });
 ```
@@ -555,7 +552,7 @@ Get delegate by username.
 ```js
 var arkApi = require("arkjs-wrapper")
 
-arkApi.getDelegate("username of delegate", function(err, success, response){
+arkApi.getDelegate("username of delegate", (error, success, response) => {
     console.log(response);
 });
 ```
@@ -577,8 +574,7 @@ Get votes by account address.
 **Request**
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getVotes("Address of the account. (String)",
-  function(error, success, response) {
+arkApi.getVotes("Address of the account. (String)", (error, success, response) => {
     console.log(response);
 });
 ```
@@ -597,8 +593,7 @@ Get voters of delegate.
 **Request**
 ```js
 var arkApi = require("arkjs-wrapper")
-arkApi.getVoters("Public key of delegate. (String)",
-  function(error, success, response) {
+arkApi.getVoters("Public key of delegate. (String)", (error, success, response) => {
     console.log(response);
 });
 ```
