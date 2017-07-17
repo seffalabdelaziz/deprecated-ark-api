@@ -40,7 +40,7 @@ Transaction.sendTransactions = (transactions, callback) => {
         return;
     }
 
-    initP.then(() => {
+    Init.initP.then(() => {
         var params = {
             path: "/peer/transactions",
             body: { transactions: transactions },
@@ -50,12 +50,12 @@ Transaction.sendTransactions = (transactions, callback) => {
                 "os": "node-arkjs",
                 "version": "0.3.0",
                 "port": 1,
-                "nethash": netHash
+                "nethash": Network.hash
             }
         };
 
         Api.post(params, callback);
-
+        
         broadcastTransactions(params, Network.seeds);
         broadcastTransactions(params, Network.peers);
     });

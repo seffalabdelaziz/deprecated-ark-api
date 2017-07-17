@@ -77,7 +77,7 @@ Network.useNet = (netName) => {
         Network.getHash((err, succ, resp) => {
             if(resp && resp.success)
             {
-                Network.netHash = resp.nethash;
+                Network.hash = resp.nethash;
                 resolve();
             }
             else
