@@ -1,24 +1,32 @@
-# ark-api
-
-[![Build Status](https://travis-ci.org/ArkEcosystem/ark-api.svg?branch=master)](https://travis-ci.org/ArkEcosystem/ark-api)
-
-A Node.JS module which provides an wrapper for the [Ark API].
+# arkjs-wrapper
+A Node.JS module which provides an wrapper for the [Ark API] based off the deprecated ark-api javascript wrapper.
+This module includes improvements to the original ark-api module and is capable of creating and sending transactions properly by wrapping calls to arkjs.
 
 ## Installation
-
-[![npm package](https://nodei.co/npm/ark-api.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ark-api/)
+Add the following dependency to your ```package.json```
+```js
+"arkjs-wrapper": "git://github.com/eugeneli/arkjs-wrapper"
+```
 
 
 ## Table of contents
-
+- [Initialization](#initialization)
 - [Accounts](#accounts)
-- [Loader](#loader)
 - [Transactions](#transactions)
 - [Peers](#peers)
 - [Blocks](#blocks)
 - [Signatures](#signatures)
 - [Delegates](#delegates)
 - [Multi-Signature](#multi-signature)
+
+## Initialization
+Before you begin, choose a network to initialize a list of nodes in that network
+```js
+var arkApi = require("arkjs-wrapper");
+var network = "main" //or "dev"
+arkApi.init(network);
+```
+
 
 ## Accounts
 Account related API calls.
@@ -28,8 +36,8 @@ Get the balance of an account.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
-arkAPI.getBalance("Address of the account",
+var arkApi = require("arkjs-wrapper")
+arkApi.getBalance("Address of the account",
   function(error, success, response) {
     console.log(response);
 });
@@ -39,8 +47,8 @@ arkAPI.getBalance("Address of the account",
 ```
 {
   "success": true,
-  "balance": "Balance of account",
-  "unconfirmedBalance": "Unconfirmed balance of account"
+  "balance": Balance of account (Integer String),
+  "unconfirmedBalance": "Unconfirmed balance of account (Integer String)"
 }
 ```
 ### Get account public key
@@ -48,8 +56,8 @@ Get the public key of an account. If the account does not exist the API call wil
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
-arkAPI.getPublicKey("Address of the account",
+var arkApi = require("arkjs-wrapper")
+arkApi.getPublicKey("Address of the account",
   function(error, success, response) {
     console.log(response);
 });
@@ -59,7 +67,7 @@ arkAPI.getPublicKey("Address of the account",
 ```
 {
   "success": true,
-  "publicKey": "Public key of account. Hex"
+  "publicKey": "Public key of account. (Hex String)"
 }
 ```
 
@@ -68,8 +76,8 @@ Returns account information of an address.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
-arkAPI.getAccount("Address of the account",
+var arkApi = require("arkjs-wrapper")
+arkApi.getAccount("Address of the account",
   function(error, success, response) {
     console.log(response);
 });
@@ -80,13 +88,13 @@ arkAPI.getAccount("Address of the account",
 {
   "success": true,
   "account": {
-    "address": "Address of account. String",
-    "unconfirmedBalance": "Unconfirmed balance of account. Integer",
-    "balance": "Balance of account. Integer",
-    "publicKey": "Public key of account. Hex",
-    "unconfirmedSignature": "If account enabled second signature, but it's still not confirmed. Boolean: true or false",
-    "secondSignature": "If account enabled second signature. Boolean: true or false",
-    "secondPublicKey": "Second signature public key. Hex"
+    "address": "Address of account. (String)",
+    "unconfirmedBalance": "Unconfirmed balance of account. (String)",
+    "balance": "Balance of account. (String)",
+    "publicKey": "Public key of account. (Hex String)",
+    "unconfirmedSignature": "If account enabled second signature, but it's still not confirmed. (0 or 1)",
+    "secondSignature": "If account enabled second signature. (0 or 1)",
+    "secondPublicKey": "Second signature public key. (Hex String)"
   }
 }
 ```
@@ -95,8 +103,8 @@ Get votes by account address.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
-arkAPI.getVotes("Address of the account",
+var arkApi = require("arkjs-wrapper")
+arkApi.getVotes("Address of the account",
   function(error, success, response) {
     console.log(response);
 });
@@ -106,75 +114,20 @@ arkAPI.getVotes("Address of the account",
 ```
 {
   "success": true,
-  "delegates": "array of delegates"
-}
-```
-
-### Vote for the selected delegates
-Vote for the selected delegate - only 1 delegate can be voted from each Ark address at a time.
-
-**Request**
-```js
-var arkAPI = require("ark-api");
-arkAPI.vote("Secret key of account",
-            "Second secret of account, required if user uses second signature. The parameter is ignored when the value is null.",
-            "Public key of sender account, to verify secret passphrase in wallet. Optional, only for UI. The parameter is ignored when the value is null."
-            "Array of string in the following format: ['+DelegatePublicKey'] OR ['-DelegatePublicKey']. Use + to UPvote, - to DOWNvote",
-  function(error, success, response) {
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-    "success": true,
-    "transaction": {object}
-}
-```
-
-## Loader
-Provides the synchronisation and loading information of a client. These API calls are only working if the client is syncing or loading.
-
-### Get loading status
-Returns account's delegates by address.
-
-**Request**
-```js
-var arkAPI = require("ark-api");
-arkAPI.getLoadingStatus(function(error, success, response) {
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-   "success": true,
-   "loaded": "Is blockchain loaded? Boolean: true or false",
-   "now": "Last block loaded during loading time. Integer",
-   "blocksCount": "Total blocks count in blockchain at loading time. Integer"
-}
-```
-
-### Get synchronisation status
-Get the synchronisation status of the client.
-
-**Request**
-```js
-var arkAPI = require("ark-api");
-arkAPI.getSynchronisationStatus(function(error, success, response) {
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-   "success": true,
-   "sync": "Is wallet is syncing with another peers? Boolean: true or false",
-   "blocks": "Number of blocks remaining to sync. Integer",
-   "height": "Total blocks in blockchain. Integer"
+  "delegates": [
+    {
+        username: Delegate Name (String),
+        address: Delegate Address (String),
+        publicKey: Delegate public key (String),
+        vote: Number of votes (Integer String),
+        producedBlocks: Number of Blocks Produces (Integer),
+        missedBlocks: Number of missed blocks (Integer),
+        rate: Delegate rank (Integer)
+        approval: Percent approval (float)
+        productivity: Percent blocks forged (float)
+    }
+    ...
+  ]
 }
 ```
 
@@ -186,18 +139,18 @@ Transactions list matched by provided parameters.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
+var arkApi = require("arkjs-wrapper")
 
 var parameters = {
   "blockId": "Block id of transaction. (String)",
   "senderId": "Sender address of transaction. (String)",
   "recipientId": "Recipient of transaction. (String)",
-  "limit": "Limit of transaction to send in response. Default is 20. (Number)",
+  "limit": "Limit of transaction to send in response. Default: 20. Max: 50 (Integer number)",
   "offset": "Offset to load. (Integer number)",
   "orderBy": "Name of column to order. After column name must go 'desc' or 'asc' to choose order type. Example: orderBy=timestamp:desc (String)"
 };
 
-arkAPI.getTransactionsList(parameters, function(error, success, response) {
+arkApi.getTransactionsList(parameters, function(error, success, response) {
     console.log(response);
 });
 ```
@@ -207,32 +160,96 @@ arkAPI.getTransactionsList(parameters, function(error, success, response) {
 {
   "success": true,
   "transactions": [
-    "list of transactions objects"
+    {
+        id: Transaction ID (String),
+        blockid: Block ID (Integer String),
+        type: Transaction type (Integer),
+        timestamp: Seconds since genesis block (Integer),
+        amount: Transaction amount (Integer)
+        fee: Transaction fee (Integer),
+        venderField: Vender field/Smartbridge (String),
+        senderId: Sender address (String),
+        recipientId: Recipient address (String),
+        senderPublicKey: Sender public key (String),
+        signature: Transaction signature (String),
+        asset: Asset (Object),
+        confirmations: Number of confirmations (Integer)
+    }
+    ...
   ]
 }
 ```
 
-### Send transaction
-Send transaction to broadcast network.
+### Create Transaction
+Creates a transaction object to be sent
 
-**Request**
+**Example**
 ```js
-var arkAPI = require("ark-api");
-arkAPI.sendTransaction("Secret key of account",
-                      "Secret key from second transaction, required if user uses second signature. The parameter is ignored when the value is null.",
-                      "Public key of sender account, to verify secret passphrase in wallet. Optional, only for UI. The parameter is ignored when the value is null.",
-                      "Amount of transaction * 10^8. Example: to send 1.1234 ARK, use 112340000 as amount",
-                      "Recipient of transaction. Address.",
-                      function(error, success, response) {
+var arkApi = require("arkjs-wrapper")
+var transaction = arkApi.createTransaction("Sender passphrase",
+                      "Address of recipient",
+                      "Amount to send in 10^8",
+                      "Vender Field",
+                      "Sender second passphrase (optional)");
+console.log(transaction);
+```
+
+### Create Delegate Transaction
+Creates a delegate registration transaction to be sent
+
+**Example**
+```js
+var arkApi = require("arkjs-wrapper")
+var transaction = arkApi.createDelegateTransaction("Passphrase",
+                      "Delegate name",
+                      "Second passphrase (optional)");
+console.log(transaction);
+```
+
+### Create Second Signature Transaction
+Creates a second signature transaction to be sent
+
+**Example**
+```js
+var arkApi = require("arkjs-wrapper")
+var transaction = arkApi.createSecondSignatureTransaction("Passphrase",
+                      "Second passphrase");
+console.log(transaction);
+```
+
+### Create Vote Transaction
+Creates a vote transaction to be sent
+
+**Example**
+```js
+var arkApi = require("arkjs-wrapper")
+var transaction = arkApi.createVoteTransaction("Passphrase",
+                      ["+58199578191950019299181920120128129"] //Array of vote strings
+                      "Second passphrase");
+console.log(transaction);
+```
+
+### Send transactions
+Broadcasts an array of transactions to multiple nodes
+
+**Example**
+```js
+var arkApi = require("arkjs-wrapper")
+var transaction = arkApi.sendTransactions([Transactions array], (error, success, response) => {
     console.log(response);
 });
 ```
 
 **Response**
-```
+```js
 {
-  "success": true,
-  "transactionId": "id of added transaction"
+    success: true,
+    transactionIds: [
+    "ID of transactions that went sent (String)",
+    "ID of transactions that went sent (String)",
+    "ID of transactions that went sent (String)",
+    ...
+    ]
 }
 ```
 
@@ -241,8 +258,8 @@ Transaction matched by id.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
-arkAPI.getTransaction("String of transaction (String)", function(error, success, response) {
+var arkApi = require("arkjs-wrapper")
+arkApi.getTransaction("String of transaction (String)", function(error, success, response) {
     console.log(response);
 });
 ```
@@ -251,21 +268,7 @@ arkAPI.getTransaction("String of transaction (String)", function(error, success,
 ```
 {
   "success": true,
-  "transaction": {
-    "id": "Id of transaction. String",
-    "type": "Type of transaction. Integer",
-    "subtype": "Subtype of transaction. Integer",
-    "timestamp": "Timestamp of transaction. Integer",
-    "senderPublicKey": "Sender public key of transaction. Hex",
-    "senderId": "Address of transaction sender. String",
-    "recipientId": "Recipient id of transaction. String",
-    "amount": "Amount. Integer",
-    "fee": "Fee. Integer",
-    "signature": "Signature. Hex",
-    "signSignature": "Second signature. Hex",
-    "companyGeneratorPublicKey": "If transaction was sent to merchant, provided comapny generator public key to find company. Hex",
-    "confirmations": "Number of confirmations. Integer"
-  }
+  "transaction": {Transaction Object}
 }
 ```
 
@@ -274,8 +277,8 @@ Get unconfirmed transaction by id.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
-arkAPI.getUnconfirmedTransaction("String of transaction (String)", function(error, success, response) {
+var arkApi = require("arkjs-wrapper")
+arkApi.getUnconfirmedTransaction("String of transaction (String)", function(error, success, response) {
     console.log(response);
 });
 ```
@@ -284,20 +287,7 @@ arkAPI.getUnconfirmedTransaction("String of transaction (String)", function(erro
 ```
 {
   "success": true,
-  "transaction": {
-    "id": "Id of transaction. String",
-    "type": "Type of transaction. Integer",
-    "subtype": "Subtype of transaction. Integer",
-    "timestamp": "Timestamp of transaction. Integer",
-    "senderPublicKey": "Sender public key of transaction. Hex",
-    "senderId": "Address of transaction sender. String",
-    "recipientId": "Recipient id of transaction. String",
-    "amount": "Amount. Integer",
-    "fee": "Fee. Integer",
-    "signature": "Signature. Hex",
-    "signSignature": "Second signature. Hex",
-    "confirmations": "Number of confirmations. Integer"
-  }
+  "transaction": {Transaction Object}
 }
 ```
 
@@ -306,8 +296,8 @@ Get list of unconfirmed transactions.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
-arkAPI.getUnconfirmedTransactions(function(error, success, response) {
+var arkApi = require("arkjs-wrapper")
+arkApi.getUnconfirmedTransactions(function(error, success, response) {
     console.log(response);
 });
 ```
@@ -328,30 +318,28 @@ Get peers list by parameters.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
-var parameters = {
-  "state: State of peer. 1 - disconnected. 2 - connected. 0 - banned. (String)",
-  "os: OS of peer. (String)",
-  "shared: Is peer shared? Boolean: true or false. (String)",
-  "version: Version of peer. (String)",
-  "limit: Limit to show. Max limit is 100. (Integer)",
-  "offset: Offset to load. (Integer)",
-  "orderBy: Name of column to order. After column name must go 'desc' or 'asc' to choose order type. (String)"
-};
-
-arkAPI.getPeersList(parameters, function(error, success, response) {
+var arkApi = require("arkjs-wrapper")
+arkApi.getPeersList(function(error, success, response) {
     console.log(response);
 });
 ```
-
-All parameters joins by "OR".
 
 **Response**
 ```
 {
   "success": true,
   "peers": [
-    "list of peers"
+    {
+        ip: IP Address (String),
+        port: Port number (Integer),
+        version: Node version (String),
+        errors: Errors (Integer),
+        os: Operating System (String),
+        height: Block height (Integer),
+        status: Node status (String),
+        delay: Ping (Integer)
+    }
+    ...
   ]
 }
 ```
@@ -361,9 +349,9 @@ Get peer by ip and port
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
+var arkApi = require("arkjs-wrapper")
 
-arkAPI.getPeer("ip: Ip of peer. (String)",
+arkApi.getPeer("ip: Ip of peer. (String)",
                "port: Port of peer. (Integer)",
                function(error, success, response) {
     console.log(response);
@@ -383,8 +371,8 @@ Get peer version and build time
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
-arkAPI.getPeerVersion(function(err, success, response){
+var arkApi = require("arkjs-wrapper")
+arkApi.getPeerVersion(function(err, success, response){
   console.log(response);
 });
 ```
@@ -405,8 +393,8 @@ Blocks manage API.
 Get block by id.
 
 ```js
-var arkAPI = require("ark-api");
-arkAPI.getBlock(function("id: Id of block", err, success, response){
+var arkApi = require("arkjs-wrapper")
+arkApi.getBlock(function("id: Id of block", err, success, response){
   console.log(response);
 });
 ```
@@ -442,7 +430,7 @@ arkAPI.getBlock(function("id: Id of block", err, success, response){
 Get all blocks.
 
 ```js
-var arkAPI = require("ark-api");
+var arkApi = require("arkjs-wrapper")
 var parameters = {
   "totalFee: total fee of block. (Integer)",
   "totalAmount: total amount of block. (Integer)",
@@ -454,7 +442,7 @@ var parameters = {
   "orderBy: field name to order by. Format: fieldname:orderType. Example: height:desc, timestamp:asc (String)"
 };
 
-arkAPI.getBlocks(parameters, function(err, success, response){
+arkApi.getBlocks(parameters, function(err, success, response){
   console.log(response);
 });
 ```
@@ -475,9 +463,9 @@ All parameters joins by OR.
 Get transaction fee for sending "normal" transactions.
 
 ```js
-var arkAPI = require("ark-api");
+var arkApi = require("arkjs-wrapper")
 
-arkAPI.getBlockchainFee(function(err, success, response){
+arkApi.getBlockchainFee(function(err, success, response){
   console.log(response);
 });
 ```
@@ -494,9 +482,9 @@ arkAPI.getBlockchainFee(function(err, success, response){
 Get blockchain height.
 
 ```js
-var arkAPI = require("ark-api");
+var arkApi = require("arkjs-wrapper")
 
-arkAPI.getBlockchainHeight(function(err, success, response){
+arkApi.getBlockchainHeight(function(err, success, response){
   console.log(response);
 });
 ```
@@ -513,9 +501,9 @@ arkAPI.getBlockchainHeight(function(err, success, response){
 Get amount forged by account.
 
 ```js
-var arkAPI = require("ark-api");
+var arkApi = require("arkjs-wrapper")
 
-arkAPI.getForgedByAccount("generatorPublicKey: generator id of block in hex. (String)",
+arkApi.getForgedByAccount("generatorPublicKey: generator id of block in hex. (String)",
                           function(err, success, response){
     console.log(response);
 });
@@ -529,79 +517,25 @@ arkAPI.getForgedByAccount("generatorPublicKey: generator id of block in hex. (St
 }
 ```
 
-## Signatures
-Blocks manage API.
-
-### Add second signature
-Add second signature to account.
-
-**Request**
-```js
-var arkAPI = require("ark-api");
-arkAPI.addSecondSignature("secret key of account",
-                          "second key of account",
-                          "Public key of account, to verify valid secret key and account. Optional. The parameter is ignored when the value is null.",
-                          function(err, success, response){
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-  "success": true,
-  "transactionId": "id of transaction with new signature",
-  "publicKey": "Public key of signature. hex"
-}
-```
-
 ## Delegates
 Delegates API.
 
 ### Enable delegate on account
 Calls for delegates functional.
 
-**Request**
-```js
-var arkAPI = require("ark-api");
-arkAPI.enableDelegateOnAccount("Secret key of account",
-                          "Second secret of account, required if user uses second signature. The parameter is ignored when the value is null."
-                          "Username of delegate. String from 1 to 20 characters."
-                          function(err, success, response){
-    console.log(response);
-});
-```
-
-**Request**
-```
-{
-  "secret": "Secret key of account",
-  "secondSecret": "Second secret of account",
-  "username": "Username of delegate. String from 1 to 20 characters."
-}
-```
-
-**Response**
-```
-{
-  "success": true,
-  "transaction": "transaction object"
-}
-```
-
 ### Get delegates
 Get delegates list.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
+var arkApi = require("arkjs-wrapper")
 var parameters = {
   "limit: Limit to show. Integer. (Integer)",
   "offset: Offset (Integer)",
   "orderBy: Order by field (String)"
 };
 
-arkAPI.getDelegates(parameters, function(err, success, response){
+arkApi.getDelegates(parameters, function(err, success, response){
     console.log(response);
 });
 ```
@@ -614,16 +548,14 @@ arkAPI.getDelegates(parameters, function(err, success, response){
 }
 ```
 
-- Delegates Array includes: delegateId, address, publicKey, vote (# of votes), producedBlocks, missedBlocks, rate, productivity
-
 ### Get delegate
 Get delegate by username.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
+var arkApi = require("arkjs-wrapper")
 
-arkAPI.getDelegate("username of delegate", function(err, success, response){
+arkApi.getDelegate("username of delegate", function(err, success, response){
     console.log(response);
 });
 ```
@@ -644,8 +576,8 @@ Get votes by account address.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
-arkAPI.getVotes("Address of the account. (String)",
+var arkApi = require("arkjs-wrapper")
+arkApi.getVotes("Address of the account. (String)",
   function(error, success, response) {
     console.log(response);
 });
@@ -655,19 +587,17 @@ arkAPI.getVotes("Address of the account. (String)",
 ```
 {
   "success": true,
-  "delegates": "array of delegates"
+  "delegates": [array of delegates]
 }
 ```
-
-- Delegates Array includes: delegateId, address, publicKey, vote (# of votes), producedBlocks, missedBlocks, rate, productivity
 
 ### Get voters
 Get voters of delegate.
 
 **Request**
 ```js
-var arkAPI = require("ark-api");
-arkAPI.getVoters("Public key of delegate. (String)",
+var arkApi = require("arkjs-wrapper")
+arkApi.getVoters("Public key of delegate. (String)",
   function(error, success, response) {
     console.log(response);
 });
@@ -677,137 +607,10 @@ arkAPI.getVoters("Public key of delegate. (String)",
 ```
 {
   "success": true,
-  "accounts": [
-    "array of accounts who vote for delegate"
-  ]
+  "accounts": [array of accounts who vote for delegate]
 }
 ```
 
-### Enable forging on delegate
-Enable forging
-
-**Request**
-```js
-var arkAPI = require("ark-api");
-arkAPI.enableForging("secret key of delegate account",
-  function(error, success, response) {
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-  "success": true,
-  "address": "address"
-}
-```
-
-### Disable forging on delegate
-Disable forging
-
-**Request**
-```js
-var arkAPI = require("ark-api");
-arkAPI.disableForging("secret key of delegate account",
-  function(error, success, response) {
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-  "success": true,
-  "address": "address"
-}
-```
-
-## Multi-Signature
-Multisignature group API.
-
-### Get pending multi-signature transactions
-Returns multisig transaction that waiting for your signature.
-
-**Request**
-```js
-var arkAPI = require("ark-api");
-arkAPI.getPendingMultiSignatureTransactions("Public key of account (String)",
-                                            function(error, success, response) {
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-    "success": true,
-    "transactions": ['array of transactions to sign']
-}
-```
-
-### Create multi-signature account
-Create a multisignature account.
-
-**Request**
-```js
-var arkAPI = require("ark-api");
-arkAPI.createMultiSignatureAccount("your secret. string. required.",
-                                   "request lifetime in hours (1-24). required.",
-                                   "minimum signatures needed to approve a tx or a change (1-15). integer. required",
-                                   "[array of public keys strings]. add '+' before publicKey to add an account or '-' to remove. required.",
-                                   function(error, success, response) {
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-  "success": true,
-  "transactionId": "transaction id"
-}
-```
-
-### Sign transaction
-Sign transaction that wait for your signature.
-
-```js
-var arkAPI = require("ark-api");
-arkAPI.signTransaction("your secret. string. required.",
-                       "public key of your account. string. optional. The parameter is ignored when the value is null.",
-                       "id of transaction to sign.",
-                       function(error, success, response) {
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-  "success": true,
-  "transactionId": "transaction id"
-}
-```
-
-### Get accounts of multisignature
-Get accounts of multisignature.
-
-```js
-var arkAPI = require("ark-api");
-arkAPI.getAccountsOfMultisignature("Public key of multi-signature account (String)",
-                                   function(error, success, response) {
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-  "success": true,
-  "accounts": "array of accounts"
-}
-```
 
 ## License
 
