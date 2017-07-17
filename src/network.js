@@ -1,3 +1,5 @@
+const request = require("request");
+
 const Network = {
   node: "",
   seeds: [],
@@ -68,7 +70,7 @@ Network.useNet = (netName) => {
         if(!seeds[netName])
             reject("Network name doesn't exist");
 
-        var netSeeds = seeds[netName].map((seed) => netName == "main" ? `http://${netName}:4001` : `http://${netName}:4002`);
+        var netSeeds = seeds[netName].map((seed) => netName == "main" ? `http://${seed}:4001` : `http://${seed}:4002`);
         Network.node = netSeeds[Math.floor(Math.random() * netSeeds.length)];
         Network.seeds = netSeeds;
 
@@ -86,10 +88,22 @@ Network.useNet = (netName) => {
 
 Network.getHash = (callback) => {
     var params = {
-        path: "/api/blocks/getNetHash",
+        method: "GET",
+        url: `${Network.node}/api/blocks/getNetHash`,
         json: true
     };
-    Api.get(params, callback);
+    request(
+        params,
+        (error, response, body) => {
+            if (error) {
+                if (callback) {
+                    callback(error, false, null);
+                }
+            } else if (callback) {
+                callback(null, body.success, body);
+            }
+        }
+    );
 };
 
 module.exports = Network;

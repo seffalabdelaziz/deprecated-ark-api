@@ -18,7 +18,7 @@ Init.init = (networkName) => {
                 else
                     reject("Error getting peers");
             });
-        });
+        }).catch((err) => reject(err));
     });
 }
 

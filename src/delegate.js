@@ -1,4 +1,4 @@
-const Api = require('./api.js');
+const Api = require("./api.js");
 
 const Delegate = {};
 
