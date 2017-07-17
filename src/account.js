@@ -5,7 +5,7 @@ const Account = {};
 
 Account.openAccount = function (secretKey, callback) {
   Api.post({
-    url: `${network.node}/api/accounts/open`,
+    path: "/api/accounts/open",
     form: {
       secret: secretKey,
     },
@@ -15,7 +15,7 @@ Account.openAccount = function (secretKey, callback) {
 
 Account.getBalance = function (address, callback) {
   Api.get({
-    url: `${network.node}/api/accounts/getBalance`,
+    path: "/api/accounts/getBalance",
     qs: {
       address,
     },
@@ -25,7 +25,7 @@ Account.getBalance = function (address, callback) {
 
 Account.getPublicKey = function (address, callback) {
   Api.get({
-    url: `${network.node}/api/accounts/getPublicKey`,
+    path: "/api/accounts/getPublicKey",
     qs: {
       address,
     },
@@ -35,7 +35,7 @@ Account.getPublicKey = function (address, callback) {
 
 Account.generatePublicKey = function (secretKey, callback) {
   Api.post({
-    url: `${network.node}/api/accounts/generatePublicKey`,
+    path: "/api/accounts/generatePublicKey",
     form: {
       secret: secretKey,
     },
@@ -45,7 +45,7 @@ Account.generatePublicKey = function (secretKey, callback) {
 
 Account.getAccount = function (address, callback) {
   Api.get({
-    url: `${network.node}/api/accounts`,
+    path: "/api/accounts",
     qs: {
       address,
     },
@@ -55,7 +55,7 @@ Account.getAccount = function (address, callback) {
 
 Account.getVotes = function (address, callback) {
   Api.get({
-    url: `${network.node}/api/accounts/delegates`,
+    path: "/api/accounts/delegates",
     qs: {
       address,
     },
@@ -79,7 +79,7 @@ function (secretKey, secondSecretKey, publicKey, delegates, callback) {
   }
 
   Api.put({
-    url: `${network.node}/api/accounts/delegates`,
+    path: "/api/accounts/delegates",
     form: data,
     json: true,
   }, callback);

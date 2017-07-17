@@ -1,7 +1,8 @@
 const Network = {
   node: "",
-  seeds: []
-  peers: []
+  seeds: [],
+  peers: [],
+  hash: ""
 };
 
 var seeds = {
@@ -62,14 +63,33 @@ var seeds = {
     ]
 }
 
-Network.useNet = function(netName) {
-    if(!seeds[netName])
-        return false;
+Network.useNet = (netName) => {
+    return new Promise((resolve, reject) => {
+        if(!seeds[netName])
+            reject("Network name doesn't exist");
 
-    var netSeeds = seeds[netName].map((seed) => netName == "main" ? netName + ":4001" : netName + ":4002");
-    Network.node = netSeeds[Math.floor(Math.random() * netSeeds.length)];
-    Network.seeds = netSeeds;
-    return true;
-}
+        var netSeeds = seeds[netName].map((seed) => netName == "main" ? `http://${netName}:4001` : `http://${netName}:4002`);
+        Network.node = netSeeds[Math.floor(Math.random() * netSeeds.length)];
+        Network.seeds = netSeeds;
+
+        Network.getHash((err, succ, resp) => {
+            if(resp && resp.success)
+            {
+                Network.netHash = resp.nethash;
+                resolve();
+            }
+            else
+                reject("Error getting NetHash");
+        });
+    });
+};
+
+Network.getHash = (callback) => {
+    var params = {
+        path: "/api/blocks/getNetHash",
+        json: true
+    };
+    Api.get(params, callback);
+};
 
 module.exports = Network;

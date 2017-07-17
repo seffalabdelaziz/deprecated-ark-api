@@ -1,62 +1,54 @@
-const network = require('./network.js');
-const Api = require('./api.js');
-const Init = require('./init.js');
+const ark = require("arkjs");
+const Network = require("./network.js");
+const Api = require("./api.js");
+const Init = require("./init.js");
 
 const Transaction = {};
 
 Transaction.getTransactionsList = function (qs, callback) {
   Api.get({
-    url: `${network.node}/api/transactions`,
+    path: "/api/transactions",
     qs,
     json: true,
   }, callback);
 };
 
-Transaction.sendTransaction =
-function (secretKey, secondSecretKey, publicKey, amount, recipientId, callback) {
-  const data = {
-    secret: secretKey,
-    amount,
-    recipientId,
-  };
+Transaction.createTransaction = (passphrase, recipientAddr, amount, vendorField, secondPassphrase) => {
+    var transaction = ark.transaction.createTransaction(recipientAddr, amount, vendorField, passphrase, secondPassphrase);
+    return transaction;
+};
 
-  if (secondSecretKey) {
-    data.secondSecret = secondSecretKey;
-  }
+Transaction.sendTransactions = (transactions, callback) => {
+    if(!Init.initP)
+    {
+        callback(true, false, {success: false, msg: "Peers not initialized"});
+        return;
+    }
 
-  if (publicKey) {
-    data.publicKey = publicKey;
-  }
+    initP.then(() => {
+        var config = {
+            path: "/peer/transactions",
+            body: { transactions: transactions },
+            json: true,
+            headers: {
+                "Content-Type": "application/json",
+                "os": "node-arkjs",
+                "version": "0.3.0",
+                "port": 1,
+                "nethash": netHash
+            }
+        };
 
-  if(!Init.initP)
-  {
-    callback(true, false, {success: false, msg: "Peers not initialized"});
-    return;
-  }
+        Api.post(config, callback);
 
-  Init.initP.then(() => {
-    var peers = options.peers;
-    Api.get({
-      url: `${network.node}/api/transactions`,
-      method: 'PUT',
-      json: data,
-    }, callback);
-
-    //Also broadcast tx to other peers just in case
-    console.log(`Also broadcasting to ${peers.length} peers`)
-    peers.forEach((peer) => {
-      Api.get({
-        url: `${peer.ip}/api/transactions`,
-        method: 'PUT',
-        json: data,
-      });
+        Network.seeds.forEach((peer) => Api.post(config));
     });
-  }).catch((err) => "Error initializing peers"); 
+
 };
 
 Transaction.getTransaction = function (transactionId, callback) {
   Api.get({
-    url: `${network.node}/api/transactions/get`,
+    path: "/api/transactions/get",
     qs: {
       id: transactionId,
     },
@@ -66,7 +58,7 @@ Transaction.getTransaction = function (transactionId, callback) {
 
 Transaction.getUnconfirmedTransaction = function (transactionId, callback) {
   Api.get({
-    url: `${network.node}/api/transactions/unconfirmed/get`,
+    path: "/api/transactions/unconfirmed/get",
     qs: {
       id: transactionId,
     },
@@ -76,7 +68,7 @@ Transaction.getUnconfirmedTransaction = function (transactionId, callback) {
 
 Transaction.getUnconfirmedTransactions = function (callback) {
   Api.get({
-    url: `${network.node}/api/transactions/unconfirmed`,
+    path: "/api/transactions/unconfirmed",
     json: true,
   }, callback);
 };
