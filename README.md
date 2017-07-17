@@ -139,7 +139,7 @@ Creates a transaction object to be sent
 var arkApi = require("arkjs-wrapper")
 var transaction = arkApi.createTransaction("Sender passphrase",
                       "Address of recipient",
-                      "Amount to send in 10^8",
+                      "Amount to send in 10^8 (Integer)",
                       "Vender Field",
                       "Sender second passphrase (optional)");
 console.log(transaction);
@@ -196,9 +196,9 @@ var transaction = arkApi.sendTransactions([Transactions array], (error, success,
 {
     success: true,
     transactionIds: [
-    "ID of transactions that went sent (String)",
-    "ID of transactions that went sent (String)",
-    "ID of transactions that went sent (String)",
+    "ID of transaction that was sent (String)",
+    "ID of transaction that was sent (String)",
+    "ID of transaction that was sent (String)",
     ...
     ]
 }
