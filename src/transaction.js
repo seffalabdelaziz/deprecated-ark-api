@@ -36,7 +36,7 @@ Transaction.createVoteTransaction = (passPhrase, votes, secondPass) => {
 Transaction.sendTransactions = (transactions, callback) => {
     if(!Init.initP)
     {
-        callback(true, false, {success: false, msg: "Peers not initialized"});
+        callback(true, false, {success: false, msg: "Peer nodes not initialized"});
         return;
     }
 
@@ -55,7 +55,7 @@ Transaction.sendTransactions = (transactions, callback) => {
         };
 
         Api.post(params, callback);
-        
+
         broadcastTransactions(params, Network.seeds);
         broadcastTransactions(params, Network.peers);
     });

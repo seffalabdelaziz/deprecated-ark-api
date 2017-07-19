@@ -1,5 +1,4 @@
 const Account = require("./account.js");
-const Loader = require("./loader.js");
 const Transaction = require("./transaction.js");
 const Peer = require("./peer.js");
 const Block = require("./block.js");
@@ -15,10 +14,6 @@ module.exports = {
     getPublicKey: Account.getPublicKey,
     getAccount: Account.getAccount,
     getVotes: Account.getVotes,
-
-    // Loader
-    getLoadingStatus: Loader.getLoadingStatus,
-    getSynchronisationStatus: Loader.getSynchronisationStatus,
 
     // Transaction
     getTransactionsList: Transaction.getTransactionsList,

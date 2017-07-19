@@ -1,5 +1,5 @@
 # arkjs-wrapper
-A Node.JS module which provides an wrapper for the [Ark API] based off the deprecated ark-api javascript wrapper.
+A Node.JS module which provides an wrapper for the Ark API based off the deprecated ark-api javascript wrapper.
 This module includes improvements to the original ark-api module and is capable of creating and sending transactions properly by wrapping calls to arkjs.
 
 ## Installation
@@ -490,7 +490,7 @@ arkApi.getBlockchainHeight((error, success, response) => {
 ```
 {
   "success": true,
-  "height": "Height of blockchain. Integer"
+  "height": Height of blockchain. (Integer)
 }
 ```
 
@@ -500,7 +500,7 @@ Get amount forged by account.
 ```js
 var arkApi = require("arkjs-wrapper")
 
-arkApi.getForgedByAccount("generatorPublicKey: generator id of block in hex. (String)",
+arkApi.getForgedByAccount("Delegate public key (String)",
                           (error, success, response) => {
     console.log(response);
 });
@@ -510,7 +510,7 @@ arkApi.getForgedByAccount("generatorPublicKey: generator id of block in hex. (St
 ```
 {
   "success": true,
-  "sum": "Forged amount. Integer"
+  "sum": Forged amount (Integer)
 }
 ```
 
@@ -519,6 +519,36 @@ Delegates API.
 
 ### Enable delegate on account
 Calls for delegates
+
+### Get delegate
+Get delegate by username.
+
+**Request**
+```js
+var arkApi = require("arkjs-wrapper")
+
+arkApi.getDelegate("username of delegate", (error, success, response) => {
+    console.log(response);
+});
+```
+
+**Response**
+```
+{
+    "success": true,
+    "delegate": {
+        username: Delegate Name (String),
+        address: Delegate Address (String),
+        publicKey: Delegate public key (String),
+        vote: Number of votes (Integer String),
+        producedBlocks: Number of Blocks Produces (Integer),
+        missedBlocks: Number of missed blocks (Integer),
+        rate: Delegate rank (Integer)
+        approval: Percent approval (float)
+        productivity: Percent blocks forged (float)
+    }
+}
+```
 
 ### Get delegates
 Get delegates list.
@@ -541,32 +571,10 @@ arkApi.getDelegates(parameters, (error, success, response) => {
 ```
 {
   "success": true,
-  "delegates": "delegates objects array"
+  "delegates": [Array of delegate objects]
 }
 ```
 
-### Get delegate
-Get delegate by username.
-
-**Request**
-```js
-var arkApi = require("arkjs-wrapper")
-
-arkApi.getDelegate("username of delegate", (error, success, response) => {
-    console.log(response);
-});
-```
-
-**Response**
-```
-{
-    "success": true,
-    "delegate": {
-        "username": "username of delegate",
-        "transactionId": "transaction id",
-        "votes": "amount of stake voted for this delegate"
-}
-```
 
 ### Get votes of account
 Get votes by account address.
@@ -602,7 +610,7 @@ arkApi.getVoters("Public key of delegate. (String)", (error, success, response) 
 ```
 {
   "success": true,
-  "accounts": [array of accounts who vote for delegate]
+  "accounts": [array of accounts who voted for delegate]
 }
 ```
 
