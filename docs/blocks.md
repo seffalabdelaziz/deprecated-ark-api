@@ -16,24 +16,19 @@ arkApi.getBlock("id: Id of block", (err, success, response) => {
 {
     "success": true,
     "block": {
-        "id": "Id of block. String",
-        "version": "Version of block. Integer",
-        "timestamp": "Timestamp of block. Integer",
-        "height": "Height of block. Integer",
-        "previousBlock": "Previous block id. String",
-        "numberOfRequests": "Not using now. Will be removed in 0.2.0",
-        "numberOfTransactions": "Number of transactions. Integer",
-        "numberOfConfirmations": "Not using now.",
-        "totalAmount": "Total amount of block. Integer",
-        "totalFee": "Total fee of block. Integer",
-        "payloadLength": "Payload length of block. Integer",
-        "requestsLength": "Not using now. Will be removed in 0.2.0",
-        "confirmationsLength": "Not using now.,
-        "payloadHash": "Payload hash. Hex",
-        "generatorPublicKey": "Generator public key. Hex",
-        "generatorId": "Generator id. String.",
-        "generationSignature": "Generation signature. Not using. Will be removed in 0.2.0",
-        "blockSignature": "Block signature. Hex"
+        "id": "Id of block. (String)",
+        "version": "Version of block. (Integer)",
+        "timestamp": "Timestamp of block. (Integer)",
+        "height": "Height of block. (Integer)",
+        "previousBlock": "Previous block id. (String)",
+        "numberOfTransactions": "Number of transactions. (Integer)",
+        "totalAmount": "Total amount of block. (Integer)",
+        "totalFee": "Total fee of block. (Integer)",
+        "payloadLength": "Payload length of block. (Integer)",
+        "payloadHash": "Payload hash. (Hex String)",
+        "generatorPublicKey": "Generator public key. (Hex String)",
+        "generatorId": "Generator id. (String)",
+        "blockSignature": "Block signature. (Hex)"
     }
 }
 ```

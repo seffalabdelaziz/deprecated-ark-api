@@ -1,7 +1,7 @@
 {
-  "name": "arkjs-wrapper",
-  "version": "1.0.1",
-  "description": "A Node.JS module which provides an wrapper for the Ark API.",
+  "name": "ark-api",
+  "version": "1.2.0",
+  "description": "A Node.JS module which provides a wrapper for the Ark API.",
   "main": "src/index.js",
   "repository": {
     "type": "git",
@@ -13,6 +13,8 @@
     "Node.js",
     "Arkjs"
   ],
+  "author": "vrlc92 <vrlc92@gmail.com> (https://br.linkedin.com/in/vrlc92), Eugene Li <hello@itseugene.li>",
+  "license": "MIT",
   "dependencies": {
     "arkjs": "^0.2.0",
     "bigi": "^1.4.2",

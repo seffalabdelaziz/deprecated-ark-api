@@ -51,7 +51,7 @@ arkApi.getPeer("ip: Ip of peer. (String)",
 ```
 {
   "success": true,
-  "peer": "peer object"
+  "peer": {peer object}
 }
 ```
 
