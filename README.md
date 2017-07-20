@@ -9,13 +9,6 @@ This module includes improvements to the original ark-api and is capable of crea
 [![npm package](https://nodei.co/npm/ark-api.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/ark-api/)
 
 
-## Table of contents
-- [Accounts](/docs/accounts.md)
-- [Transactions](/docs/transactions.md)
-- [Peers](/docs/peers.md)
-- [Blocks](/docs/blocks.md)
-- [Delegates](/docs/delegates.md)
-
 ## Initialization
 Before you begin, choose a network to initialize a list of nodes in that network
 ```js
@@ -23,6 +16,14 @@ var arkApi = require("arkjs-wrapper");
 var network = "main" //or "dev"
 arkApi.init(network);
 ```
+
+
+## Documentation
+- [Accounts](/docs/accounts.md)
+- [Transactions](/docs/transactions.md)
+- [Peers](/docs/peers.md)
+- [Blocks](/docs/blocks.md)
+- [Delegates](/docs/delegates.md)
 
 ## License
 
