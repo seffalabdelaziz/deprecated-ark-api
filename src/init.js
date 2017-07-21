@@ -12,7 +12,7 @@ Init.init = (networkName) => {
             Peer.getPeersList((err, success, response) => {
                 if(response != null && response.success)
                 {
-                    Network.peers = response.peers.filter((peer) => peer.status == "OK" && peer.delay <= 100);
+                    Network.peers = response.peers.filter((peer) => peer.status == "OK");
                     resolve();
                 }
                 else
