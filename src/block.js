@@ -8,7 +8,7 @@ Block.getBlock = function (blockId, callback) {
         qs: {
             id: blockId,
         },
-        json: true,
+        json: true
     }, callback);
 };
 
@@ -16,21 +16,21 @@ Block.getBlocks = function (qs, callback) {
     Api.get({
         path: "/api/blocks",
         qs,
-        json: true,
+        json: true
     }, callback);
 };
 
 Block.getBlockchainFee = function (callback) {
     Api.get({
         path: "/api/blocks/getFee",
-        json: true,
+        json: true
     }, callback);
 };
 
 Block.getBlockchainHeight = function (callback) {
     Api.get({
         path: "/api/blocks/getHeight",
-        json: true,
+        json: true
     }, callback);
 };
 
@@ -40,7 +40,7 @@ Block.getForgedByAccount = function (generatorPublicKey, callback) {
         qs: {
             generatorPublicKey,
         },
-        json: true,
+        json: true
     }, callback);
 };
 

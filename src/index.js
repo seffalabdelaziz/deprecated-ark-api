@@ -1,13 +1,14 @@
+const Api = require("./api.js");
 const Account = require("./account.js");
 const Transaction = require("./transaction.js");
 const Peer = require("./peer.js");
+const Network = require("./network.js");
 const Block = require("./block.js");
 const Delegate = require("./delegate.js");
-const Init = require("./init.js")
 
 module.exports = {
-    // Init
-    init: Init.init,
+    // Api
+    init: Api.init,
 
     // Account
     getBalance: Account.getBalance,
@@ -30,6 +31,9 @@ module.exports = {
     getPeersList: Peer.getPeersList,
     getPeer: Peer.getPeer,
     getPeerVersion: Peer.getPeerVersion,
+
+    // Network
+    getHash: Network.getHash,
 
     // Block
     getBlock: Block.getBlock,

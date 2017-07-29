@@ -6,7 +6,7 @@ Delegate.getDelegates = function (qs, callback) {
     Api.get({
         path: "/api/delegates",
         qs,
-        json: true,
+        json: true
     }, callback);
 };
 
@@ -16,7 +16,7 @@ Delegate.getByUsername = function (username, callback) {
         qs: {
             username,
         },
-        json: true,
+        json: true
     }, callback);
 };
 
@@ -26,7 +26,7 @@ Delegate.getByPublicKey = function (publicKey, callback) {
         qs: {
             publicKey,
         },
-        json: true,
+        json: true
     }, callback);
 };
 
@@ -38,7 +38,7 @@ Delegate.getVoters = function (publicKey, callback) {
         qs: {
             publicKey,
         },
-        json: true,
+        json: true
     }, callback);
 };
 

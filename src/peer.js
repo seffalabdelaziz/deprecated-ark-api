@@ -5,7 +5,7 @@ const Peer = {};
 Peer.getPeersList = function (callback) {
     Api.get({
         path: "/api/peers",
-        json: true,
+        json: true
     }, callback);
 };
 
@@ -16,14 +16,14 @@ Peer.getPeer = function (ip, port, callback) {
             ip,
             port,
         },
-        json: true,
+        json: true
     }, callback);
 };
 
 Peer.getPeerVersion = function (callback) {
     Api.get({
         path: "/api/peers/version",
-        json: true,
+        json: true
     }, callback);
 };
 

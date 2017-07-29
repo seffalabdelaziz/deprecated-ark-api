@@ -1,7 +1,6 @@
 const ark = require("arkjs");
 const Network = require("./network.js");
 const Api = require("./api.js");
-const Init = require("./init.js");
 
 const Transaction = {};
 
@@ -9,7 +8,7 @@ Transaction.getTransactionsList = function (qs, callback) {
     Api.get({
         path: "/api/transactions",
         qs,
-        json: true,
+        json: true
     }, callback);
 };
 
@@ -34,31 +33,22 @@ Transaction.createVoteTransaction = (passPhrase, votes, secondPass) => {
 };
 
 Transaction.sendTransactions = (transactions, callback) => {
-    if(!Init.initP)
-    {
-        callback(true, false, {success: false, msg: "Peer nodes not initialized"});
-        return;
-    }
+    var params = {
+        path: "/peer/transactions",
+        body: { transactions: transactions },
+        json: true,
+        headers: {
+            "Content-Type": "application/json",
+            "os": "node-arkjs",
+            "version": "0.3.0",
+            "port": 1,
+            "nethash": Network.hash
+        }
+    };
 
-    Init.initP.then(() => {
-        var params = {
-            path: "/peer/transactions",
-            body: { transactions: transactions },
-            json: true,
-            headers: {
-                "Content-Type": "application/json",
-                "os": "node-arkjs",
-                "version": "0.3.0",
-                "port": 1,
-                "nethash": Network.hash
-            }
-        };
+    Api.post(params, callback);
 
-        Api.post(params, callback);
-
-        broadcastTransactions(params, Network.seeds);
-    });
-
+    broadcastTransactions(params, Network.seeds);
 };
 
 var broadcastTransactions = (params, nodes) => {
@@ -74,7 +64,7 @@ Transaction.getTransaction = function (transactionId, callback) {
         qs: {
             id: transactionId,
         },
-        json: true,
+        json: true
     }, callback);
 };
 
@@ -84,14 +74,14 @@ Transaction.getUnconfirmedTransaction = function (transactionId, callback) {
         qs: {
             id: transactionId,
         },
-        json: true,
+        json: true
     }, callback);
 };
 
 Transaction.getUnconfirmedTransactions = function (callback) {
     Api.get({
         path: "/api/transactions/unconfirmed",
-        json: true,
+        json: true
     }, callback);
 };
 

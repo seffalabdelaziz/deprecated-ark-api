@@ -28,7 +28,7 @@ Account.generatePublicKey = function (secretKey, callback) {
         form: {
             secret: secretKey,
         },
-        json: true,
+        json: true
     }, callback);
 };
 
@@ -38,7 +38,7 @@ Account.getAccount = function (address, callback) {
         qs: {
             address,
         },
-        json: true,
+        json: true
     }, callback);
 };
 
@@ -48,7 +48,7 @@ Account.getVotes = function (address, callback) {
         qs: {
             address,
         },
-        json: true,
+        json: true
     }, callback);
 };
 
