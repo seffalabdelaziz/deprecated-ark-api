@@ -1,5 +1,4 @@
 const ark = require("arkjs");
-const Network = require("./network.js");
 const Api = require("./api.js");
 
 const Transaction = {};
@@ -42,13 +41,13 @@ Transaction.sendTransactions = (transactions, callback) => {
             "os": "node-arkjs",
             "version": "0.3.0",
             "port": 1,
-            "nethash": Network.hash
+            "nethash": Api.hash
         }
     };
 
     Api.post(params, callback);
 
-    broadcastTransactions(params, Network.seeds);
+    broadcastTransactions(params, Api.seeds);
 };
 
 var broadcastTransactions = (params, nodes) => {
