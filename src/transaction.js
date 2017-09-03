@@ -24,17 +24,17 @@ Transaction.createTransaction = (passPhrase, recipientAddr, amount, options) => 
 
 Transaction.createDelegateTransaction = (passPhrase, delegateName, secondPass) => {
     var transaction = ark.delegate.createDelegate(passPhrase, delegateName, secondPass);
-    return transaction
+    return transaction;
 };
 
 Transaction.createSecondSignatureTransaction = (passPhrase, secondPass) => {
     var transaction = ark.signature.createTransaction(passPhrase, secondPass);
-    return transaction
+    return transaction;
 };
 
 Transaction.createVoteTransaction = (passPhrase, votes, secondPass) => {
     var transaction = ark.vote.createVote(passPhrase, votes, secondPass);
-    return transaction
+    return transaction;
 };
 
 Transaction.sendTransactions = (transactions, callback) => {

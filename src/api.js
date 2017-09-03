@@ -9,10 +9,15 @@ const Api = {
 };
 
 var initP;
+var isDebug = false;
 
 Api.init = (networkName) => {
     initP = Api.useNet(networkName);
-}
+};
+
+Api.setDebug = (debug) => {
+    isDebug = debug;
+};
 
 Api.useNet = (netName) => {
     return new Promise((resolve, reject) => {
@@ -85,7 +90,8 @@ var doRequest = (config, callback) => {
             }
         }
     ).on("error", (err) => {
-        console.log(err)
+        if(isDebug)
+            console.log(err);
     });
 }
 

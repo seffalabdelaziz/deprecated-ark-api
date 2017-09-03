@@ -9,6 +9,7 @@ const Delegate = require("./delegate.js");
 module.exports = {
     // Api
     init: Api.init,
+    setDebug: Api.setDebug,
 
     // Account
     getBalance: Account.getBalance,
