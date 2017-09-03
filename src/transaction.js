@@ -11,7 +11,13 @@ Transaction.getTransactionsList = function (qs, callback) {
     }, callback);
 };
 
-Transaction.createTransaction = (passPhrase, recipientAddr, amount, vendorField, secondPassphrase) => {
+Transaction.createTransaction = (passPhrase, recipientAddr, amount, options) => {
+    var vendorField, secondPassphrase = null;
+    if(options)
+    {
+        vendorField = options.vendorField ? options.vendorField : null;
+        secondPassphrase = options.secondPassphrase ? options.secondPassphrase : null;
+    }
     var transaction = ark.transaction.createTransaction(recipientAddr, amount, vendorField, passPhrase, secondPassphrase);
     return transaction;
 };
