@@ -8,11 +8,11 @@ const Api = {
     hash: ""
 };
 
-var initP;
+Api.initP;
 var isDebug = false;
 
 Api.init = (networkName) => {
-    initP = Api.useNet(networkName);
+    Api.initP = Api.useNet(networkName);
 };
 
 Api.setDebug = (debug) => {
@@ -64,7 +64,7 @@ Api.put = (config, callback) => {
 };
 
 Api.request = (config, callback) => {
-    if(!config.url && !initP)
+    if(!config.url && !Api.initP)
     {
         callback(true, false, {success: false, msg: "Network and peer nodes not initialized"});
         return;
@@ -73,11 +73,12 @@ Api.request = (config, callback) => {
     if(config.url)
         doRequest(config, callback);
     else        
-        initP.then(doRequest(config, callback));
+        Api.initP.then(doRequest(config, callback));
 };
 
 var doRequest = (config, callback) => {
     config.url = config.url ? config.url : Api.node + config.path;
+
     request(
         config,
         (error, response, body) => {

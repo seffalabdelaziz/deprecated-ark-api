@@ -38,27 +38,28 @@ Transaction.createVoteTransaction = (passPhrase, votes, secondPass) => {
 };
 
 Transaction.sendTransactions = (transactions, callback) => {
-    var params = {
-        path: "/peer/transactions",
-        body: { transactions: transactions },
-        json: true,
-        headers: {
-            "Content-Type": "application/json",
-            "os": "node-arkjs",
-            "version": "0.3.0",
-            "port": 1,
-            "nethash": Api.hash
-        }
-    };
+    Api.initP.then(() => {
+        var params = {
+            path: "/peer/transactions",
+            json: { transactions: transactions },
+            headers: {
+                "Content-Type": "application/json",
+                "os": "node-arkjs",
+                "version": "0.3.0",
+                "port": 1,
+                "nethash": Api.hash
+            }
+        };
 
-    Api.post(params, callback);
+        Api.post(params, callback);
 
-    broadcastTransactions(params, Api.seeds);
+        broadcastTransactions(params, Api.seeds);
+    });
 };
 
 var broadcastTransactions = (params, nodes) => {
     nodes.forEach((node) => {
-        params.url = `http://${node}/peer/transactions`;
+        params.url = `${node}/peer/transactions`;
         Api.post(params);
     });
 };
