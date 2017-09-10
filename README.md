@@ -14,7 +14,7 @@ This module includes improvements to the original ark-api and is capable of crea
 ## Initialization
 Before you begin, choose a network to initialize a list of nodes in that network
 ```js
-var arkApi = require("arkjs-wrapper");
+var arkApi = require("ark-api");
 var network = "main" //or "dev"
 arkApi.init(network);
 ```
