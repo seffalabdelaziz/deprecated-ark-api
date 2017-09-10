@@ -9,7 +9,7 @@ Get delegate by username.
 
 **Request**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 
 arkApi.getDelegate("username of delegate", (error, success, response) => {
     console.log(response);
@@ -39,7 +39,7 @@ Get delegates list.
 
 **Request**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 var parameters = {
   "limit: Limit to show. Integer. (Integer)",
   "offset: Offset (Integer)",
@@ -65,7 +65,7 @@ Get votes by account address.
 
 **Request**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 arkApi.getVotes("Address of the account. (String)", (error, success, response) => {
     console.log(response);
 });
@@ -84,7 +84,7 @@ Get voters of delegate.
 
 **Request**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 arkApi.getVoters("Public key of delegate. (String)", (error, success, response) => {
     console.log(response);
 });

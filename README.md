@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ArkEcosystem/ark-api.svg?branch=master)](https://travis-ci.org/ArkEcosystem/ark-api)
 
-# arkjs-wrapper
+# arkjs wrapper
 A Node.JS module which provides an wrapper for the Ark API based off the deprecated ark-api module.
 This module includes improvements to the original ark-api and is capable of creating and sending transactions properly by wrapping calls to arkjs.
 

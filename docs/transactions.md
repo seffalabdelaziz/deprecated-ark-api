@@ -8,7 +8,7 @@ Creates a transaction object to be sent
 
 **Example**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 var transaction = arkApi.createTransaction("Sender passphrase",
                       "Address of recipient",
                       "Amount to send in 10^8 (Integer)",
@@ -22,7 +22,7 @@ Creates a delegate registration transaction to be sent
 
 **Example**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 var transaction = arkApi.createDelegateTransaction("Passphrase",
                       "Delegate name",
                       "Second passphrase (optional)");
@@ -34,7 +34,7 @@ Creates a second signature transaction to be sent
 
 **Example**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 var transaction = arkApi.createSecondSignatureTransaction("Passphrase",
                       "Second passphrase");
 console.log(transaction);
@@ -45,7 +45,7 @@ Creates a vote transaction to be sent
 
 **Example**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 var transaction = arkApi.createVoteTransaction("Passphrase",
                       ["+58199578191950019299181920120128129"] //Array of vote strings
                       "Second passphrase");
@@ -57,7 +57,7 @@ Broadcasts an array of transactions to multiple nodes
 
 **Example**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 var transaction = arkApi.sendTransactions([Transactions array], (error, success, response) => {
     console.log(response);
 });
@@ -81,7 +81,7 @@ Transactions list matched by provided parameters.
 
 **Request**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 
 var parameters = {
   "blockId": "Block id of transaction. (String)",
@@ -127,7 +127,7 @@ Transaction matched by id.
 
 **Request**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 arkApi.getTransaction("String of transaction (String)", (error, success, response) => {
     console.log(response);
 });
@@ -146,7 +146,7 @@ Get unconfirmed transaction by id.
 
 **Request**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 arkApi.getUnconfirmedTransaction("String of transaction (String)", (error, success, response) => {
     console.log(response);
 });
@@ -165,7 +165,7 @@ Get list of unconfirmed transactions.
 
 **Request**
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 arkApi.getUnconfirmedTransactions((error, success, response) => {
     console.log(response);
 });

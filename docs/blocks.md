@@ -5,7 +5,7 @@ Blocks manage API.
 Get block by id.
 
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 arkApi.getBlock("id: Id of block", (err, success, response) => {
   console.log(response);
 });
@@ -37,7 +37,7 @@ arkApi.getBlock("id: Id of block", (err, success, response) => {
 Get all blocks.
 
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 var parameters = {
   "totalFee: total fee of block. (Integer)",
   "totalAmount: total amount of block. (Integer)",
@@ -70,7 +70,7 @@ All parameters joins by OR.
 Get transaction fee for sending "normal" transactions.
 
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 
 arkApi.getBlockchainFee((error, success, response) => {
   console.log(response);
@@ -89,7 +89,7 @@ arkApi.getBlockchainFee((error, success, response) => {
 Get blockchain height.
 
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 
 arkApi.getBlockchainHeight((error, success, response) => {
   console.log(response);
@@ -108,7 +108,7 @@ arkApi.getBlockchainHeight((error, success, response) => {
 Get amount forged by account.
 
 ```js
-var arkApi = require("arkjs-wrapper")
+var arkApi = require("ark-api")
 
 arkApi.getForgedByAccount("Delegate public key (String)",
                           (error, success, response) => {
