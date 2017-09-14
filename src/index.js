@@ -10,6 +10,7 @@ module.exports = {
     // Api
     init: Api.init,
     setDebug: Api.setDebug,
+    setPreferredNode: Api.setPreferredNode,
 
     // Account
     getBalance: Account.getBalance,
@@ -48,5 +49,6 @@ module.exports = {
     getDelegate: Delegate.getDelegate,
     getDelegateByPublicKey: Delegate.getByPublicKey,
     getDelegateByUsername: Delegate.getByUsername,
+    getNextForgers: Delegate.getNextForgers,
     getVoters: Delegate.getVoters
 };
