@@ -1,63 +1,54 @@
-/**
- * Created by vrlc92 on 5/4/16.
- */
-
-const Account = require('./account.js');
-const Loader = require('./loader.js');
-const Transaction = require('./transaction.js');
-const Peer = require('./peer.js');
-const Block = require('./block.js');
-const Signature = require('./signature.js');
-const Delegate = require('./delegate.js');
-const MultiSignature = require('./multi_signature.js');
+const Api = require("./api.js");
+const Account = require("./account.js");
+const Transaction = require("./transaction.js");
+const Peer = require("./peer.js");
+const Network = require("./network.js");
+const Block = require("./block.js");
+const Delegate = require("./delegate.js");
 
 module.exports = {
-  // Account
-  getBalance: Account.getBalance,
-  getPublicKey: Account.getPublicKey,
-  getAccount: Account.getAccount,
-  getVotes: Account.getVotes,
-  vote: Account.vote,
+    // Api
+    init: Api.init,
+    setDebug: Api.setDebug,
+    setPreferredNode: Api.setPreferredNode,
 
-  // Loader
-  getLoadingStatus: Loader.getLoadingStatus,
-  getSynchronisationStatus: Loader.getSynchronisationStatus,
+    // Account
+    getBalance: Account.getBalance,
+    getPublicKey: Account.getPublicKey,
+    getAccount: Account.getAccount,
+    getVotes: Account.getVotes,
 
-  // Transaction
-  getTransactionsList: Transaction.getTransactionsList,
-  getTransaction: Transaction.getTransaction,
-  sendTransaction: Transaction.sendTransaction,
-  getUnconfirmedTransaction: Transaction.getUnconfirmedTransaction,
-  getUnconfirmedTransactions: Transaction.getUnconfirmedTransactions,
+    // Transaction
+    getTransactionsList: Transaction.getTransactionsList,
+    getTransaction: Transaction.getTransaction,
+    createTransaction: Transaction.createTransaction,
+    createDelegateTransaction: Transaction.createDelegateTransaction,
+    createSecondSignatureTransaction: Transaction.createSecondSignatureTransaction,
+    createVoteTransaction: Transaction.createVoteTransaction,
+    sendTransactions: Transaction.sendTransactions,
+    getUnconfirmedTransaction: Transaction.getUnconfirmedTransaction,
+    getUnconfirmedTransactions: Transaction.getUnconfirmedTransactions,
 
-  // Peer
-  getPeersList: Peer.getPeersList,
-  getPeer: Peer.getPeer,
-  getPeerVersion: Peer.getPeerVersion,
+    // Peer
+    getPeersList: Peer.getPeersList,
+    getPeer: Peer.getPeer,
+    getPeerVersion: Peer.getPeerVersion,
 
-  // Block
-  getBlock: Block.getBlock,
-  getBlocks: Block.getBlocks,
-  getBlockchainFee: Block.getBlockchainFee,
-  getBlockchainHeight: Block.getBlockchainHeight,
-  getForgedByAccount: Block.getForgedByAccount,
+    // Network
+    getHash: Network.getHash,
 
-  // Signature
-  addSecondSignature: Signature.addSecondSignature,
+    // Block
+    getBlock: Block.getBlock,
+    getBlocks: Block.getBlocks,
+    getBlockchainFee: Block.getBlockchainFee,
+    getBlockchainHeight: Block.getBlockchainHeight,
+    getForgedByAccount: Block.getForgedByAccount,
 
-  // Delegate
-  enableDelegateOnAccount: Delegate.enableDelegateOnAccount,
-  getDelegates: Delegate.getDelegates,
-  getDelegate: Delegate.getDelegate,
-  getDelegateByPublicKey: Delegate.getByPublicKey,
-  getDelegateByUsername: Delegate.getByUsername,
-  getVoters: Delegate.getVoters,
-  enableForging: Delegate.enableForging,
-  disableForging: Delegate.disableForging,
-
-  // MultiSignature
-  getPendingMultiSignatureTransactions: MultiSignature.getPendingMultiSignatureTransactions, // eslint-disable-line
-  createMultiSignatureAccount: MultiSignature.createMultiSignatureAccount,
-  signTransaction: MultiSignature.signTransaction,
-  getAccountsOfMultisignature: MultiSignature.getAccountsOfMultisignature,
+    // Delegate
+    getDelegates: Delegate.getDelegates,
+    getDelegate: Delegate.getDelegate,
+    getDelegateByPublicKey: Delegate.getByPublicKey,
+    getDelegateByUsername: Delegate.getByUsername,
+    getNextForgers: Delegate.getNextForgers,
+    getVoters: Delegate.getVoters
 };
