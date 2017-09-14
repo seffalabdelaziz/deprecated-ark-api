@@ -30,6 +30,13 @@ Delegate.getByPublicKey = function (publicKey, callback) {
     }, callback);
 };
 
+Delegate.getNextForgers = function (callback) {
+    Api.get({
+        path: "/api/delegates/getNextForgers",
+        json: true
+    }, callback);
+};
+
 Delegate.getDelegate = Delegate.getByUsername;
 
 Delegate.getVoters = function (publicKey, callback) {

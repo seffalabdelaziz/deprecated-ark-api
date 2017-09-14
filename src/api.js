@@ -48,6 +48,10 @@ Api.useNet = (netName) => {
     });
 };
 
+Api.setPreferredNode = (prefNode, main) => {
+    Api.node = `http://${prefNode}:${main ? 4001 : 4002}`;
+};
+
 Api.get = (config, callback) => {
     config.method = "GET";
     Api.request(config, callback);

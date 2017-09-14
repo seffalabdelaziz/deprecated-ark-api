@@ -9,7 +9,7 @@ Get delegate by username.
 
 **Request**
 ```js
-var arkApi = require("ark-api")
+var arkApi = require("ark-api");
 
 arkApi.getDelegate("username of delegate", (error, success, response) => {
     console.log(response);
@@ -39,7 +39,7 @@ Get delegates list.
 
 **Request**
 ```js
-var arkApi = require("ark-api")
+var arkApi = require("ark-api");
 var parameters = {
   "limit: Limit to show. Integer. (Integer)",
   "offset: Offset (Integer)",
@@ -59,13 +59,34 @@ arkApi.getDelegates(parameters, (error, success, response) => {
 }
 ```
 
+### Get Next Forgers
+Get delegates next in line to forge
+
+**Request**
+```js
+var arkApi = require("ark-api");
+arkApi.getNextForgers((error, success, response) => {
+    console.log(response);
+});
+```
+
+**Response**
+```
+{
+  "success": true,
+  "currentBlock": Current block height (Integer),
+  "currentSlot": Current slot (integer),
+  "delegates": [Array of delegate public keys in order of forging]
+}
+```
+
 
 ### Get votes of account
 Get votes by account address.
 
 **Request**
 ```js
-var arkApi = require("ark-api")
+var arkApi = require("ark-api");
 arkApi.getVotes("Address of the account. (String)", (error, success, response) => {
     console.log(response);
 });
@@ -84,7 +105,7 @@ Get voters of delegate.
 
 **Request**
 ```js
-var arkApi = require("ark-api")
+var arkApi = require("ark-api");
 arkApi.getVoters("Public key of delegate. (String)", (error, success, response) => {
     console.log(response);
 });
