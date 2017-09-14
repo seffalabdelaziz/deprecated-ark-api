@@ -24,7 +24,7 @@ Api.useNet = (netName) => {
         if(!seeds[netName])
             reject("Network name doesn't exist");
 
-        var netSeeds = seeds[netName].map((seed) => netName == "main" ? `http://${seed}:4001` : `http://${seed}:4002`);
+        var netSeeds = seeds[netName].map((seed) => `${seed}:${netName == "main" ? 4001 : 4002}`);
         Api.node = netSeeds[Math.floor(Math.random() * netSeeds.length)];
         Api.seeds = netSeeds;
 
@@ -49,7 +49,7 @@ Api.useNet = (netName) => {
 };
 
 Api.setPreferredNode = (prefNode, main) => {
-    Api.node = `http://${prefNode}:${main ? 4001 : 4002}`;
+    Api.node = `${prefNode}:${main ? 4001 : 4002}`;
 };
 
 Api.get = (config, callback) => {
