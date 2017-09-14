@@ -48,7 +48,7 @@ Api.useNet = (netName) => {
     });
 };
 
-Api.setPreferredNode = (prefNode, main) => {
+Api.setPreferredNode = (prefNode, main = true) => {
     Api.node = `${prefNode}:${main ? 4001 : 4002}`;
 };
 
@@ -82,7 +82,7 @@ Api.request = (config, callback) => {
 
 var doRequest = (config, callback) => {
     config.url = config.url ? config.url : Api.node + config.path;
-
+    config.url = `http://${config.url}`;
     request(
         config,
         (error, response, body) => {
